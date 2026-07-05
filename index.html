@@ -1,0 +1,2484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data 8 Function Index</title>
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --serif: "Iowan Old Style", "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  }
+  :root, :root[data-theme="light"] {
+    --bg: #eef1f5;
+    --surface: #ffffff;
+    --surface-2: #e9edf2;
+    --ink: #0f2237;
+    --ink-soft: #405872;
+    --ink-faint: #70829a;
+    --border: #dbe2ea;
+    --border-strong: #c2ccd9;
+    --shadow: 0 1px 2px rgba(15,34,55,.05), 0 8px 24px -16px rgba(15,34,55,.2);
+    --brand: #14549c;
+    --gold: #b07908;
+
+    --cat-tables: #3b5bdb;
+    --cat-predicates: #048ba1;
+    --cat-arrays: #c76a10;
+    --cat-strings: #c2255c;
+    --cat-misc: #7048e8;
+    /* chart mark colors — validated against white surface */
+    --mk-tables: #3b5bdb;
+    --mk-predicates: #048ba1;
+    --mk-arrays: #c76a10;
+    --mk-strings: #c2255c;
+    --mk-misc: #7048e8;
+
+    --warn: #9a6700;
+    --warn-bg: rgba(199, 138, 16, .1);
+    --ok: #0b8043;
+    --no: #c2255c;
+
+    --tok-fn: #3b5bdb;
+    --tok-str: #0b8043;
+    --tok-pred: #7048e8;
+    --tok-bool: #c76a10;
+    --tok-punc: #8a93a3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #070d15;
+      --surface: #151a22;
+      --surface-2: #1d232d;
+      --ink: #e7ebf1;
+      --ink-soft: #a3aebd;
+      --ink-faint: #6b7787;
+      --border: #262d39;
+      --border-strong: #333c4a;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.7);
+      --brand: #7fb0f2;
+      --gold: #f0b544;
+
+      --cat-tables: #829bff;
+      --cat-predicates: #45cbe0;
+      --cat-arrays: #f2a24a;
+      --cat-strings: #f2679c;
+      --cat-misc: #a48bff;
+      /* chart mark colors — validated against #151a22 surface */
+      --mk-tables: #6887ff;
+      --mk-predicates: #25a4b8;
+      --mk-arrays: #d57a16;
+      --mk-strings: #f0508d;
+      --mk-misc: #9477ff;
+
+      --warn: #e5a441;
+      --warn-bg: rgba(242, 162, 74, .1);
+      --ok: #5fd39a;
+      --no: #f2679c;
+
+      --tok-fn: #829bff;
+      --tok-str: #5fd39a;
+      --tok-pred: #a48bff;
+      --tok-bool: #f2a24a;
+      --tok-punc: #6b7686;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #070d15;
+    --surface: #151a22;
+    --surface-2: #1d232d;
+    --ink: #e7ebf1;
+    --ink-soft: #a3aebd;
+    --ink-faint: #6b7787;
+    --border: #262d39;
+    --border-strong: #333c4a;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.7);
+    --brand: #7fb0f2;
+    --gold: #f0b544;
+
+    --cat-tables: #829bff;
+    --cat-predicates: #45cbe0;
+    --cat-arrays: #f2a24a;
+    --cat-strings: #f2679c;
+    --cat-misc: #a48bff;
+    --mk-tables: #6887ff;
+    --mk-predicates: #25a4b8;
+    --mk-arrays: #d57a16;
+    --mk-strings: #f0508d;
+    --mk-misc: #9477ff;
+
+    --warn: #e5a441;
+    --warn-bg: rgba(242, 162, 74, .1);
+    --ok: #5fd39a;
+    --no: #f2679c;
+
+    --tok-fn: #829bff;
+    --tok-str: #5fd39a;
+    --tok-pred: #a48bff;
+    --tok-bool: #f2a24a;
+    --tok-punc: #6b7686;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  code, kbd, .mono {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+    font-feature-settings: "liga" 0;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Topbar ---------- */
+  .topbar { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .topbar-in { display: flex; align-items: center; gap: 18px; padding: 12px 0; flex-wrap: wrap; }
+  .wordmark {
+    font-family: var(--serif); font-size: 16px; font-weight: 700; letter-spacing: .01em;
+    color: var(--ink); white-space: nowrap;
+  }
+  .wordmark b { color: var(--gold); font-weight: 700; }
+  .topnav { margin-left: auto; display: flex; gap: 16px; flex-wrap: wrap; }
+  .topnav a {
+    font-size: 12.5px; color: var(--ink-soft); text-decoration: none;
+    letter-spacing: .01em;
+  }
+  .topnav a:hover { color: var(--brand); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 52px 0 32px; }
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 18px; font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ""; display: inline-block; width: 28px; height: 2px; background: var(--gold); }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.04; letter-spacing: -.015em; font-weight: 700;
+    margin: 0 0 18px; text-wrap: balance;
+  }
+  .hero h1 .accent {
+    color: var(--brand);
+    box-shadow: inset 0 -0.16em color-mix(in srgb, var(--gold) 40%, transparent);
+  }
+  .hero .lead {
+    font-size: clamp(1rem, 1.6vw, 1.18rem);
+    color: var(--ink-soft); max-width: 62ch; margin: 0 0 30px; line-height: 1.5;
+  }
+  .snippet {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    max-width: 720px;
+  }
+  .snippet .bar {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 16px; border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .snippet .bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); }
+  .snippet .bar .cap {
+    width: auto; height: auto; border-radius: 0; background: none;
+    margin-left: auto; font-family: ui-monospace, monospace; font-size: 11px;
+    color: var(--ink-faint); letter-spacing: .02em;
+  }
+  .snippet pre {
+    margin: 0; padding: 18px 20px; overflow-x: auto;
+    font-size: 14px; line-height: 1.75;
+  }
+  .snippet code { color: var(--ink); }
+  .t-obj  { color: var(--ink); }
+  .t-fn   { color: var(--tok-fn); font-weight: 600; }
+  .t-str  { color: var(--tok-str); }
+  .t-pred { color: var(--tok-pred); font-weight: 600; }
+  .t-bool { color: var(--tok-bool); }
+  .t-punc { color: var(--tok-punc); }
+
+  .metrics { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 26px; }
+  .metric .n {
+    font-family: ui-monospace, monospace; font-size: 1.5rem; font-weight: 700;
+    color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .metric .l {
+    font-size: 12px; color: var(--ink-faint); text-transform: uppercase;
+    letter-spacing: .07em; margin-top: 6px;
+  }
+
+  /* ---------- Sticky toolbar ---------- */
+  .toolbar {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  .toolbar-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .search { position: relative; flex: 1 1 260px; min-width: 200px; }
+  .search svg {
+    position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; color: var(--ink-faint); pointer-events: none;
+  }
+  .search input {
+    width: 100%; padding: 10px 42px 10px 38px;
+    border: 1px solid var(--border-strong); border-radius: 9px;
+    background: var(--surface); color: var(--ink);
+    font-size: 14.5px; font-family: inherit;
+  }
+  .search input::placeholder { color: var(--ink-faint); }
+  .search input:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; border-color: var(--brand); }
+  .search kbd {
+    position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+    font-size: 11px; color: var(--ink-faint);
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 5px; padding: 2px 6px; pointer-events: none;
+  }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill {
+    font: inherit; font-size: 13px; cursor: pointer;
+    padding: 8px 13px; border-radius: 999px;
+    border: 1px solid var(--border-strong); background: var(--surface);
+    color: var(--ink-soft); display: inline-flex; align-items: center; gap: 7px;
+    transition: background .12s, color .12s, border-color .12s;
+  }
+  .pill:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pc, var(--ink-faint)); }
+  .pill[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .pill[aria-pressed="true"] .dot { background: var(--pc, var(--bg)); }
+  .pill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+  /* ---------- Sections & cards ---------- */
+  main { padding: 8px 0 40px; }
+  .section { padding-top: 34px; scroll-margin-top: 80px; }
+  .section.hidden { display: none; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .sec-head .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); align-self: center; }
+  .sec-head h2 { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; letter-spacing: 0; margin: 0; }
+  .sec-head .count {
+    font-family: ui-monospace, monospace; font-size: 12px; color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .sec-blurb { color: var(--ink-soft); font-size: 14px; margin: 0 0 20px; max-width: 70ch; }
+  .sec-blurb code { font-size: 12.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+
+  .grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  }
+  @media (min-width: 740px) { .card.wide { grid-column: span 2; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 16px 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: border-color .14s, box-shadow .14s;
+  }
+  .card.hidden { display: none; }
+  .card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: var(--shadow); }
+
+  .card-top { display: flex; align-items: flex-start; gap: 10px; }
+  .sig { font-size: 13.5px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; flex: 1; cursor: copy; }
+  .sig .fn { color: var(--accent); font-weight: 650; }
+  .sig .p { color: var(--ink-faint); }
+  .copy {
+    flex-shrink: 0; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--ink-faint); border-radius: 7px; cursor: pointer;
+    width: 30px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
+    transition: color .12s, border-color .12s;
+  }
+  .copy:hover { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+  .copy:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .copy svg { width: 14px; height: 14px; }
+
+  .subtag {
+    align-self: flex-start;
+    font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; font-weight: 650;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    padding: 2px 8px; border-radius: 5px;
+  }
+  .desc { margin: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .desc code, .params code { font-size: 12.5px; }
+
+  .params { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .params li { font-size: 12.5px; color: var(--ink-soft); display: flex; gap: 8px; line-height: 1.45; }
+  .params .pn {
+    color: var(--ink); font-family: ui-monospace, monospace; font-weight: 600;
+    flex-shrink: 0; white-space: nowrap;
+  }
+
+  /* ---------- Before / after demos ---------- */
+  .demo {
+    border-top: 1px dashed var(--border); padding-top: 10px;
+    display: flex; flex-direction: column; gap: 9px; min-width: 0;
+  }
+  .demo-cap {
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .demo-call {
+    background: var(--surface-2); border-radius: 8px; padding: 8px 11px;
+    font-size: 12.5px; color: var(--ink); overflow-x: auto; white-space: nowrap; display: block;
+  }
+  .demo-call .c { color: var(--ink-faint); }
+  .demo-flow { display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; }
+  .demo-flow.v { flex-direction: column; align-items: stretch; flex-wrap: nowrap; }
+  .demo-flow:not(.v) .demo-side:has(.mini-chart) { flex: 1 1 240px; min-width: 220px; }
+  .demo-side { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .demo-side .spec { overflow-x: auto; }
+  .demo-tag {
+    font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 650;
+  }
+  .demo-arrow { color: var(--accent); font-size: 15px; font-weight: 700; flex-shrink: 0; align-self: center; }
+  .demo-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); align-items: start; }
+  .demo-grid .demo { border-top: none; padding-top: 0; }
+  .demo-grid-outer { border-top: 1px dashed var(--border); padding-top: 12px; }
+
+  .mini-note { font-size: 11.5px; color: var(--ink-faint); line-height: 1.45; margin-top: 3px; }
+  .mini-note code { font-size: 11px; }
+
+  /* mini tables — div grid so cells can animate */
+  .mini-table {
+    display: inline-grid; font-family: ui-monospace, monospace; font-size: 10.5px;
+    font-variant-numeric: tabular-nums;
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .mini-table .mt-c {
+    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 3px 8px; text-align: left; white-space: nowrap; color: var(--ink);
+    background: var(--surface);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .mini-table .mt-h { background: var(--surface-2); font-weight: 650; color: var(--ink-soft); }
+  .mini-table .hl-h { background: color-mix(in srgb, var(--accent) 16%, var(--surface-2)); color: var(--accent); }
+  .mini-table .hl { background: color-mix(in srgb, var(--accent) 13%, var(--surface)); }
+  .mini-table .dim { opacity: .42; }
+  .mini-table .t0 { background: color-mix(in srgb, var(--cat-tables) 15%, var(--surface)); }
+  .mini-table .t1 { background: color-mix(in srgb, var(--cat-predicates) 15%, var(--surface)); }
+  .mini-table .t2 { background: color-mix(in srgb, var(--cat-strings) 14%, var(--surface)); }
+  .mini-table .mt-c.out { opacity: 0; transform: scale(.9); }
+
+  /* demo stage — interactive before/after player */
+  .stage { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .stage-bar { display: flex; align-items: center; gap: 8px; }
+  .seg { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 7px; overflow: hidden; }
+  .seg button {
+    font-family: ui-monospace, monospace; font-size: 10.5px; letter-spacing: .04em;
+    padding: 4px 11px; background: var(--surface); color: var(--ink-faint);
+    border: none; cursor: pointer;
+  }
+  .seg button + button { border-left: 1px solid var(--border-strong); }
+  .seg button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--accent); font-weight: 700; }
+  .seg button:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+  .play {
+    font-family: ui-monospace, monospace; font-size: 10.5px; cursor: pointer;
+    color: var(--accent); background: none; border-radius: 7px; padding: 4px 11px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+    transition: background .12s, transform .1s;
+  }
+  .play:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .play:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .stage-body { overflow-x: auto; padding-bottom: 2px; }
+  .stage-fade { animation: stageIn .3s ease both; }
+  @keyframes stageIn { from { opacity: 0; transform: translateY(5px); } }
+
+  /* motion polish */
+  .rv { opacity: 0; transform: translateY(10px); }
+  .rv.in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(6px); } }
+  .card.pop { animation: cardIn .28s ease both; }
+  .q-btn:active:not(:disabled), .pill:active, .jump:active, .play:active, .seg button:active { transform: scale(.96); }
+  .mini-chart rect.hbar { transition: y .5s ease, height .5s ease; }
+
+  /* chips / arrays */
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .chip {
+    font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink);
+    border: 1px solid var(--border-strong); border-radius: 6px; padding: 2px 7px;
+    background: var(--surface); white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .chip.hl { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); font-weight: 650; }
+  .chip.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); font-weight: 650; }
+  .chip.off { opacity: .45; }
+
+  .big-val { font-family: ui-monospace, monospace; font-size: 1.25rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+  .mini-code {
+    font-size: 11.5px; color: var(--ink); background: var(--surface-2);
+    border-radius: 7px; padding: 6px 9px; display: block; overflow-x: auto; white-space: nowrap;
+  }
+  .empty-tbl {
+    border: 1.5px dashed var(--border-strong); border-radius: 8px;
+    font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-faint);
+    padding: 14px 18px; align-self: flex-start;
+  }
+  .file-chip {
+    display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+    font-family: ui-monospace, monospace; font-size: 11.5px; color: var(--ink-soft);
+    border: 1px solid var(--border-strong); border-radius: 7px; padding: 5px 10px;
+    background: var(--surface-2);
+  }
+  .file-chip svg { width: 13px; height: 13px; color: var(--ink-faint); }
+
+  /* charts */
+  .mini-chart { width: 100%; max-width: 420px; height: auto; display: block; }
+  .card.wide .mini-chart { max-width: 560px; }
+  .mini-chart text { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9px; fill: var(--ink-faint); }
+  .mini-chart .lbl { fill: var(--ink-soft); }
+  .mini-chart .anno { fill: var(--ink-soft); font-weight: 650; font-size: 9.5px; }
+  .mini-chart .onbar { fill: var(--surface); font-weight: 700; font-size: 10px; }
+  .mini-chart .grid { stroke: var(--border); stroke-width: 1; }
+  .mini-chart .axis { stroke: var(--border-strong); stroke-width: 1; }
+  .mini-chart .fit { stroke: color-mix(in srgb, var(--mark) 55%, transparent); stroke-width: 2; }
+  .mini-chart .pt { fill: var(--mark); stroke: var(--surface); stroke-width: 1.5; }
+  .mini-chart .hit { fill: transparent; }
+  .mini-chart .ln { fill: none; stroke: var(--mark); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .mini-chart .bar { fill: color-mix(in srgb, var(--mark) 82%, transparent); stroke: var(--surface); stroke-width: 1.5; }
+  .mini-chart .bar:hover, .mini-chart .pt:hover { fill: var(--mark); filter: brightness(1.08); }
+  .mini-chart .dash { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 3; }
+
+  /* exam trap */
+  .trap {
+    display: flex; gap: 9px; align-items: flex-start;
+    background: var(--warn-bg); border-radius: 9px; padding: 9px 11px;
+    font-size: 12.5px; color: var(--ink-soft); line-height: 1.5;
+  }
+  .trap svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--warn); margin-top: 2px; }
+  .trap b { color: var(--warn); }
+  .trap code { font-size: 11.5px; }
+
+  .card-foot { margin-top: auto; padding-top: 4px; }
+  .ret {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: ui-monospace, monospace; font-size: 11.5px; color: var(--ink-soft);
+    border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px;
+  }
+  .ret b { color: var(--accent); font-weight: 650; }
+
+  .empty { display: none; text-align: center; padding: 70px 20px; color: var(--ink-faint); }
+  .empty.show { display: block; }
+  .empty .big { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 6px; }
+
+  /* ---------- Exam radar ---------- */
+  .hero .lead a { color: var(--brand); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--brand) 45%, transparent); }
+  .radar { margin-top: 48px; scroll-margin-top: 80px; }
+  .radar-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .radar-head h2 { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; letter-spacing: 0; margin: 0; }
+  .radar-sub { color: var(--ink-soft); font-size: 14px; margin: 0 0 8px; max-width: 78ch; }
+  .radar-sub a { color: var(--brand); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--brand) 45%, transparent); }
+  .radar-sub code { font-size: 12.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+  .radar-list { border-top: 1px solid var(--border); }
+  .radar-item { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+  .radar-rank {
+    font-family: ui-monospace, monospace; font-size: 1.35rem; font-weight: 750;
+    color: var(--brand); width: 30px; flex-shrink: 0; line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+  }
+  .radar-body { min-width: 0; }
+  .radar-body h3 { font-size: 14.5px; font-weight: 700; margin: 0 0 4px; letter-spacing: -.005em; }
+  .radar-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 8px; max-width: 88ch; }
+  .radar-body code { font-size: 11.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+  .jumps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .jump {
+    font-family: ui-monospace, monospace; font-size: 11px; cursor: pointer;
+    color: var(--brand); background: none;
+    border: 1px solid color-mix(in srgb, var(--brand) 40%, var(--border));
+    border-radius: 6px; padding: 3px 9px;
+    transition: background .12s, border-color .12s;
+  }
+  .jump:hover { background: color-mix(in srgb, var(--brand) 10%, transparent); border-color: var(--brand); }
+  .jump:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .jump::before { content: "↳ "; color: var(--ink-faint); }
+  .book {
+    font-family: ui-monospace, monospace; font-size: 11px; text-decoration: none;
+    color: var(--ink-soft); border: 1px solid var(--border-strong);
+    border-radius: 6px; padding: 3px 9px; display: inline-block;
+    transition: color .12s, border-color .12s;
+  }
+  .book:hover { color: var(--brand); border-color: var(--brand); }
+  .book:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+  /* ---------- Official resources ---------- */
+  .res { margin-top: 48px; scroll-margin-top: 80px; }
+  .res-groups { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 14px; }
+  .res-group h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 0 0 8px;
+  }
+  .res-group .jumps { flex-direction: column; align-items: flex-start; }
+
+  /* ---------- interactive panels (playground, labs) ---------- */
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .panel-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .panel-title { font-size: 13.5px; font-weight: 750; letter-spacing: .01em; }
+  .panel-sub { font-size: 12.5px; color: var(--ink-soft); margin: 0; line-height: 1.5; max-width: 84ch; }
+  .op-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .op-chip {
+    font-family: ui-monospace, monospace; font-size: 11.5px; cursor: pointer;
+    color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--border-strong); border-radius: 7px; padding: 5px 10px;
+    transition: border-color .12s, color .12s, transform .1s;
+  }
+  .op-chip:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .op-chip:disabled { opacity: .35; cursor: not-allowed; }
+  .op-chip:active:not(:disabled) { transform: scale(.96); }
+  .op-chip:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .pg-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .pg-count { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-faint); }
+  .pg-util { margin-left: auto; display: flex; gap: 6px; }
+  .pg-util button {
+    font: inherit; font-size: 12px; cursor: pointer;
+    color: var(--ink-soft); background: none; border: 1px solid var(--border-strong);
+    border-radius: 7px; padding: 3px 10px;
+  }
+  .pg-util button:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-faint); }
+  .pg-util button:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* ---------- chooser (flowcharts) ---------- */
+  .chooser { margin-top: 48px; scroll-margin-top: 80px; --accent: var(--brand); }
+  .chooser-body {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .crumbs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .crumb {
+    font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-faint);
+    border: 1px dashed var(--border-strong); border-radius: 6px; padding: 3px 8px;
+  }
+  .ch-q { font-size: 15px; font-weight: 700; margin: 0; }
+  .ch-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ch-opt {
+    font: inherit; font-size: 13.5px; cursor: pointer; text-align: left;
+    color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--border-strong); border-radius: 9px; padding: 9px 13px;
+    transition: border-color .12s, transform .1s;
+  }
+  .ch-opt:hover { border-color: var(--brand); }
+  .ch-opt:active { transform: scale(.97); }
+  .ch-opt:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .ch-result {
+    background: color-mix(in srgb, var(--brand) 7%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--brand) 30%, var(--border));
+    border-radius: 10px; padding: 13px 15px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .ch-result .fn-name { font-family: ui-monospace, monospace; font-size: 15px; font-weight: 750; color: var(--brand); }
+  .ch-restart {
+    font: inherit; font-size: 12.5px; cursor: pointer; align-self: flex-start;
+    color: var(--ink-soft); background: none; border: 1px solid var(--border-strong);
+    border-radius: 7px; padding: 4px 11px;
+  }
+  .ch-restart:hover { color: var(--ink); border-color: var(--ink-faint); }
+  .ch-map { margin-top: 12px; }
+  .ch-map summary { cursor: pointer; font-size: 13px; color: var(--ink-soft); }
+  .ch-map summary:hover { color: var(--ink); }
+  .ch-map[open] summary { margin-bottom: 10px; }
+  .tree { font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; overflow-x: auto; }
+  .tree .t-root { font-weight: 700; margin: 0 0 6px; font-size: 13px; }
+  .tree ul { list-style: none; margin: 0 0 0 6px; padding-left: 14px; border-left: 1px dashed var(--border-strong); }
+  .tree li { padding: 3px 0; }
+  .tree .t-opt { color: var(--ink-soft); }
+  .tree .t-q { font-weight: 650; color: var(--ink); margin: 3px 0 2px; }
+  .tree .jump { margin-left: 6px; }
+
+  /* ---------- distilled course notes ---------- */
+  .notes { margin-top: 48px; scroll-margin-top: 80px; }
+  .notes-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); align-items: start; margin-top: 14px; }
+  .note-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 15px 16px; display: flex; flex-direction: column; gap: 9px;
+  }
+  .note-card h3 { font-size: 14.5px; font-weight: 750; margin: 0; letter-spacing: -.005em; }
+  .note-cover { font-size: 12.5px; color: var(--ink-faint); margin: 0; }
+  .note-pts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .note-pts li {
+    font-size: 12.5px; color: var(--ink-soft); line-height: 1.5;
+    padding-left: 14px; position: relative;
+  }
+  .note-pts li::before { content: "·"; position: absolute; left: 2px; color: var(--brand); font-weight: 700; }
+  .note-pts code { font-size: 11.5px; }
+  .nugget {
+    font-size: 12.5px; color: var(--ink-soft); line-height: 1.5;
+    background: color-mix(in srgb, var(--brand) 7%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--brand) 25%, var(--border));
+    border-radius: 8px; padding: 8px 10px;
+  }
+  .nugget b { color: var(--brand); }
+  .note-foot { margin-top: auto; padding-top: 2px; }
+
+  /* ---------- p-value lab ---------- */
+  .pv-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .pv-read { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .pv-read b { color: var(--accent); }
+  .verdict { font-family: ui-monospace, monospace; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 3px 10px; }
+  .verdict.rej { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .verdict.fail { color: var(--ink-soft); background: var(--surface-2); }
+  .pv-slider { width: 100%; accent-color: var(--accent); cursor: ew-resize; }
+  .mini-chart rect.nbar { fill: color-mix(in srgb, var(--mark) 28%, transparent); transition: fill .2s; cursor: pointer; }
+  .mini-chart rect.nbar.on { fill: var(--mark); }
+
+  /* ---------- Trick check quiz ---------- */
+  .quiz { margin-top: 48px; scroll-margin-top: 80px; }
+  .quiz-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .quiz-head h2 { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; letter-spacing: 0; margin: 0; }
+  .quiz-score {
+    font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .quiz-reset {
+    font: inherit; font-size: 12.5px; cursor: pointer; margin-left: auto;
+    color: var(--ink-soft); background: none; border: 1px solid var(--border-strong);
+    border-radius: 7px; padding: 4px 11px;
+  }
+  .quiz-reset:hover { color: var(--ink); border-color: var(--ink-faint); }
+  .quiz-reset:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .quiz-sub { color: var(--ink-soft); font-size: 14px; margin: 0 0 14px; max-width: 78ch; }
+  .quiz-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
+  .qcat {
+    font-family: ui-monospace, monospace; font-size: 11px; cursor: pointer;
+    color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 11px;
+    transition: background .12s, color .12s, border-color .12s;
+  }
+  .qcat:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .qcat[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .qcat:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .quiz-item.hidden { display: none; }
+  .quiz-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); align-items: start; }
+  .quiz-item {
+    border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .q-meta { display: flex; gap: 8px; align-items: center; }
+  .q-cat {
+    font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--ink-faint);
+    border: 1px solid var(--border); border-radius: 5px; padding: 1.5px 7px;
+  }
+  .q-src { font-family: ui-monospace, monospace; font-size: 10.5px; color: var(--ink-faint); margin-left: auto; }
+  .q-text { font-size: 14px; color: var(--ink); line-height: 1.5; margin: 0; }
+  .q-text code { font-size: 12.5px; }
+  .q-code {
+    background: var(--surface-2); border-radius: 8px; padding: 9px 11px;
+    font-size: 12.5px; color: var(--ink); overflow-x: auto; white-space: pre; display: block;
+    line-height: 1.6;
+  }
+  .q-opts { display: flex; flex-wrap: wrap; gap: 7px; }
+  .q-btn {
+    font-family: ui-monospace, monospace; font-size: 12px; cursor: pointer;
+    color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 8px; padding: 6px 12px;
+    transition: border-color .12s, color .12s, background .12s;
+    max-width: 100%; overflow-wrap: anywhere; text-align: left;
+  }
+  .q-btn:hover:not(:disabled) { border-color: var(--brand); color: var(--ink); }
+  .q-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .q-btn:disabled { cursor: default; opacity: .55; }
+  .q-btn.correct {
+    opacity: 1; color: var(--ok); border-color: var(--ok); font-weight: 700;
+    background: color-mix(in srgb, var(--ok) 10%, transparent);
+  }
+  .q-btn.wrong {
+    opacity: 1; color: var(--no); border-color: var(--no);
+    background: color-mix(in srgb, var(--no) 10%, transparent);
+    text-decoration: line-through;
+  }
+  .q-why {
+    display: grid; grid-template-rows: 0fr; opacity: 0;
+    transition: grid-template-rows .35s ease, opacity .3s ease;
+    font-size: 12.5px; color: var(--ink-soft); line-height: 1.55;
+  }
+  .q-why.show { grid-template-rows: 1fr; opacity: 1; }
+  .q-why-in { overflow: hidden; min-height: 0; background: var(--surface-2); border-radius: 8px; padding: 0 11px; transition: padding .35s ease; }
+  .q-why.show .q-why-in { padding: 9px 11px; }
+  .q-why .v-ok { color: var(--ok); font-weight: 700; }
+  .q-why .v-no { color: var(--no); font-weight: 700; }
+  .q-why code { font-size: 11.5px; }
+  .q-why a { color: var(--brand); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--brand) 40%, transparent); }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 0 46px;
+    color: var(--ink-faint); font-size: 13px;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+  footer a:hover { color: var(--brand); border-color: var(--brand); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--bg); font-size: 13.5px; font-weight: 500;
+    padding: 10px 16px; border-radius: 9px; box-shadow: 0 10px 30px -8px rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 60;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast code { font-size: 12.5px; opacity: .85; }
+
+  .chart-tip {
+    position: fixed; pointer-events: none; z-index: 70;
+    background: var(--ink); color: var(--bg);
+    font-family: ui-monospace, monospace; font-size: 11.5px;
+    padding: 4px 9px; border-radius: 6px; white-space: nowrap;
+    opacity: 0; transform: translate(-50%, calc(-100% - 10px)); transition: opacity .1s;
+  }
+  .chart-tip.show { opacity: 1; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 40px 0 26px; }
+    .search kbd { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <span class="wordmark">Data <b>8</b> · Study Index</span>
+    <nav class="topnav" aria-label="Site sections">
+      <a href="#chooser">Chooser</a>
+      <a href="#radar">Radar</a>
+      <a href="#quiz">Trick check</a>
+      <a href="#notes">Notes</a>
+      <a href="#resources">Resources</a>
+      <a href="viz.html">Viz rules</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Data&nbsp;8 · Summer&nbsp;2026 · Python reference</p>
+    <h1>The&nbsp;<span class="accent">function</span> index</h1>
+    <p class="lead">Every <code>Table</code> method, <code>where</code> predicate, and NumPy call from the su26 reference — searchable, and each shown as a <strong>before&nbsp;→&nbsp;after</strong> picture of what it actually does to your data. Down the page: a <a href="#chooser">which-one-do-I-use flowchart</a>, an <a href="#radar">exam radar</a> — the eight things that actually cost points — and a <a href="#quiz">trick check</a> of real bait from five past exams.</p>
+
+    <div class="snippet">
+      <div class="bar"><span></span><span></span><span></span><span class="cap">a typical Data 8 line</span></div>
+      <pre><code><span class="t-obj">births</span><span class="t-punc">.</span><span class="t-fn">where</span><span class="t-punc">(</span><span class="t-str">'Maternal Smoker'</span><span class="t-punc">, </span><span class="t-pred">are.equal_to</span><span class="t-punc">(</span><span class="t-bool">True</span><span class="t-punc">))</span><span class="t-punc">.</span><span class="t-fn">group</span><span class="t-punc">(</span><span class="t-str">'Maternal Age'</span><span class="t-punc">, </span><span class="t-pred">np.mean</span><span class="t-punc">)</span></code></pre>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="n" id="m-total">—</div><div class="l">Functions</div></div>
+      <div class="metric"><div class="n">5</div><div class="l">Modules</div></div>
+      <div class="metric"><div class="n" id="m-demo">—</div><div class="l">Before → afters</div></div>
+      <div class="metric"><div class="n" id="m-trap">—</div><div class="l">Exam traps</div></div>
+    </div>
+  </header>
+</div>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="toolbar-inner">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions…  (where, group, percentile…)" aria-label="Search functions">
+        <kbd>/</kbd>
+      </div>
+      <div class="pills" id="pills" role="group" aria-label="Filter by module"></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div id="sections"></div>
+
+  <section class="chooser" id="chooser" aria-label="Which one do I use?">
+    <div class="radar-head"><h2>Which one do I use?</h2></div>
+    <p class="radar-sub">Three little flowcharts — picking a <b>chart</b>, a <b>table method</b>, or an <b>inference technique</b>. Click through the decision, or open the whole map. These choices are recurring exam questions in their own right. For the full chart-choosing rules with real exam questions, see the <a href="viz.html">visualization rules page →</a></p>
+    <div class="seg" id="ch-tabs" role="group" aria-label="Choose a flowchart"></div>
+    <div class="chooser-body" id="ch-body"></div>
+    <details class="ch-map"><summary>See the whole map</summary><div id="ch-maps"></div></details>
+  </section>
+
+  <div class="empty" id="empty">
+    <div class="big">No functions match “<span id="empty-q"></span>”.</div>
+    <div>Try a shorter term, or clear the filter.</div>
+  </div>
+
+  <section class="radar" id="radar" aria-label="Exam radar">
+    <div class="radar-head"><h2>Exam radar</h2></div>
+    <p class="radar-sub">The eight things that reliably cost points, ranked by how often they appear × how often they fool people — mined from five real exams with solutions (sp23 &amp; su23 midterms and finals, fa24 final). Each <code>↳ chip</code> jumps to the matching card above.</p>
+    <div class="radar-list">
+
+      <div class="radar-item">
+        <div class="radar-rank">1</div>
+        <div class="radar-body">
+          <h3>Histograms are density, not height</h3>
+          <p>The y-axis is <em>percent per unit</em>, so “height = proportion” is a recurring — false — T/F. <b>Percent in a bin = height × width</b>; a head-count needs × n on top. A tall narrow bar can hold less data than a short wide one, and merging two equal-width bins gives height <code>(x + y)/2</code>.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="hist(">hist</button><button class="jump" type="button" data-q="bin(">bin</button><a class="book" href="https://inferentialthinking.com/chapters/07/2/visualizing-numerical-distributions" target="_blank" rel="noopener">§ 7.2 movie-gross histogram</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">2</div>
+        <div class="radar-body">
+          <h3>The hypothesis-test chain</h3>
+          <p>Four links, each a separate trap: the null is about the <b>population</b> and says “same distribution — difference is chance” (never about “the sample”); a whole-distribution statistic is <b>TVD</b> = <code>sum(np.abs(a − b)) / 2</code> because signed differences cancel to ≈ 0; simulate the null with <code>sample_proportions(n, model)</code>; and the p-value tail (<code>&gt;=</code> vs <code>&lt;=</code>) must point the same way as the alternative. A p-value is <em>not</em> the chance the null is true.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="sample_proportions">sample_proportions</button><button class="jump" type="button" data-q="np.count_nonzero">count_nonzero</button><button class="jump" type="button" data-q="np.abs">np.abs</button><a class="book" href="https://inferentialthinking.com/chapters/11/1/assessing-a-model" target="_blank" rel="noopener">§ 11.1 Swain v. Alabama</a><a class="book" href="https://inferentialthinking.com/chapters/11/2/multiple-categories" target="_blank" rel="noopener">§ 11.2 Alameda juries</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">3</div>
+        <div class="radar-body">
+          <h3>Shuffle ≠ bootstrap</h3>
+          <p>Permutation (A/B) tests <b>shuffle labels without replacement</b>; bootstrap confidence intervals <b>resample rows with replacement</b> — plain <code>tbl.sample()</code>. “Sample with replacement to shuffle labels” shows up as a T/F and it is always false. Bonus fact they test: the chance a given row makes it into a bootstrap resample is <code>1 − (1 − 1/n)ⁿ ≈ 0.63</code>.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="sample(">sample</button><a class="book" href="https://inferentialthinking.com/chapters/12/1/ab-testing" target="_blank" rel="noopener">§ 12.1 maternal smoking</a><a class="book" href="https://inferentialthinking.com/chapters/12/3/deflategate" target="_blank" rel="noopener">§ 12.3 Deflategate</a><a class="book" href="https://inferentialthinking.com/chapters/13/2/bootstrap" target="_blank" rel="noopener">§ 13.2 the bootstrap</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">4</div>
+        <div class="radar-body">
+          <h3>Bootstrap CI endpoints — and what 95% means</h3>
+          <p>A c% interval is <code>[percentile((100−c)/2, stats), percentile((100+c)/2, stats)]</code> — 2.5/97.5 for 95%, 10/90 for 80%. The meaning: <b>95% of intervals built this way capture the parameter</b> — not “95% chance it's in this one.” And the bridge to testing: if 0 falls outside your 95% slope CI, reject the null at the 5% level.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="percentile">percentile</button><a class="book" href="https://inferentialthinking.com/chapters/13/3/confidence-intervals" target="_blank" rel="noopener">§ 13.3 confidence intervals</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">5</div>
+        <div class="radar-body">
+          <h3>Regression lives in two unit systems</h3>
+          <p>In standard units the line is simply <code>y = r · x</code>. Back in original units: <code>slope = r · SDy / SDx</code>, <code>intercept = ȳ − slope · x̄</code>. <code>minimize(rmse)</code> finds the <em>same</em> line numerically. Residual plots must be flat and centered at 0 — tilted or off-center plots are <em>impossible</em> for a least-squares fit; a U-shape means the relationship is nonlinear.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="minimize">minimize</button><button class="jump" type="button" data-q="scatter">scatter</button><a class="book" href="https://inferentialthinking.com/chapters/15/2/regression-line" target="_blank" rel="noopener">§ 15.2 Galton heights</a><a class="book" href="https://inferentialthinking.com/chapters/15/3/method-of-least-squares" target="_blank" rel="noopener">§ 15.3 Little Women</a><a class="book" href="https://inferentialthinking.com/chapters/15/5/visual-diagnostics" target="_blank" rel="noopener">§ 15.5 residuals</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">6</div>
+        <div class="radar-body">
+          <h3>Table-method identity traps</h3>
+          <p><code>group('x', min)</code> takes the min of every column <em>separately</em> and can invent rows that never existed — sort first, then group with <code>first</code>. <code>pivot</code>'s first argument becomes the <b>columns</b>. And know your types: <code>column</code> → array, <code>item</code> → value, <code>take</code> → table — <code>item('song')</code> and <code>take('song')</code> are the standard wrong answers.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="group(">group</button><button class="jump" type="button" data-q="pivot(">pivot</button><button class="jump" type="button" data-q="take(">take</button><a class="book" href="https://inferentialthinking.com/chapters/08/3/cross-classifying-by-more-than-one-variable" target="_blank" rel="noopener">§ 8.3 cones grid</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">7</div>
+        <div class="radar-body">
+          <h3>The probability block</h3>
+          <p>“At least one” = <code>1 − P(none)</code>, every time. Independent draws multiply; drawing <b>without replacement</b> turns products into chains with shrinking denominators — the part exams flag as “challenging.” Bayes from a tree: the target path ÷ the sum of every path consistent with the evidence.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="np.random.choice">np.random.choice</button><a class="book" href="https://inferentialthinking.com/chapters/09/5/finding-probabilities" target="_blank" rel="noopener">§ 9.5 finding probabilities</a><a class="book" href="https://inferentialthinking.com/chapters/18/1/more-likely-than-not-binary-classifier" target="_blank" rel="noopener">§ 18.1 Bayes by tree</a></div>
+        </div>
+      </div>
+
+      <div class="radar-item">
+        <div class="radar-rank">8</div>
+        <div class="radar-body">
+          <h3>CLT and the √n rules</h3>
+          <p>Sample <b>means and sums</b> go normal for large n regardless of the population's shape — sample <b>medians and maxes don't</b>, and “regardless of sample size” is false. A 95% CI of a mean has width ≈ <code>4 · SD / √n</code>; the worst-case SD of a 0/1 proportion is 0.5 — that's how “width ≤ 5%” becomes <code>n = 1600</code>.</p>
+          <div class="jumps"><button class="jump" type="button" data-q="np.mean">np.mean</button><button class="jump" type="button" data-q="np.std">np.std</button><a class="book" href="https://inferentialthinking.com/chapters/14/4/central-limit-theorem" target="_blank" rel="noopener">§ 14.4 CLT (flight delays)</a><a class="book" href="https://inferentialthinking.com/chapters/14/6/choosing-a-sample-size" target="_blank" rel="noopener">§ 14.6 choosing a sample size</a></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="quiz" id="quiz" aria-label="Trick check" hidden>
+    <div class="quiz-head">
+      <h2>Trick check</h2>
+      <span class="quiz-score" id="quiz-score"></span>
+      <button class="quiz-reset" id="quiz-reset" type="button">Reset</button>
+    </div>
+    <p class="quiz-sub">Real bait, paraphrased from the same five exams — each of these fooled a lot of people. Answer before you peek; the point is to get fooled <em>here</em> instead of in the exam room.</p>
+    <div class="quiz-cats" id="quiz-cats" role="group" aria-label="Filter questions by topic"></div>
+    <div class="quiz-grid" id="quiz-grid"></div>
+  </section>
+
+  <section class="notes" id="notes" aria-label="Course notes, distilled" hidden>
+    <div class="radar-head"><h2>Course notes, distilled</h2></div>
+    <p class="radar-sub">The official course notes, compressed to what you actually need to remember — formulas and idioms kept exact. Each card links to the full original PDF (opens in Google Drive; Berkeley account required).</p>
+    <div class="notes-grid" id="notes-grid"></div>
+  </section>
+
+  <section class="res" id="resources" aria-label="Official course resources">
+    <div class="radar-head"><h2>Official su26 resources</h2></div>
+    <p class="radar-sub">Everything below is the course's own material, linked from <a class="book" style="border:none;padding:0" href="https://data8.org/su26/resources/" target="_blank" rel="noopener">data8.org/su26/resources</a> — this page is a companion to it, not a replacement.</p>
+    <div class="res-groups">
+      <div class="res-group">
+        <h3>Exam prep</h3>
+        <div class="jumps">
+          <a class="book" href="https://drive.google.com/file/d/1MGa2pWZ7ZFFjeyTVb58i8qQAOJ8_Qxuu/view" target="_blank" rel="noopener">Exam reference sheet — the one you get in the room</a>
+          <a class="book" href="https://docs.google.com/document/d/1ZjEpBprnr_AL0z4axkTuhZ61Sm6OEVSwfWS7Z6k2D-4/edit" target="_blank" rel="noopener">Exam problems, indexed by topic</a>
+          <a class="book" href="https://www.data8.org/su26/exams/Sp26_Midterm.pdf" target="_blank" rel="noopener">Sp26 midterm — the newest, closest to su26</a>
+          <a class="book" href="https://www.data8.org/su26/exams/Sp26_Final.pdf" target="_blank" rel="noopener">Sp26 final</a>
+          <a class="book" href="https://data8.org/su26/resources/" target="_blank" rel="noopener">Full past-exam archive, 2016 – 2026</a>
+        </div>
+      </div>
+      <div class="res-group">
+        <h3>Interactive tools</h3>
+        <div class="jumps">
+          <a class="book" href="https://www.data8.org/table-function-visualizer" target="_blank" rel="noopener">Table Tutor — official function visualizer</a>
+          <a class="book" href="https://www.data8.org/interactive_table_functions/" target="_blank" rel="noopener">Table Method Visualizer</a>
+        </div>
+      </div>
+      <div class="res-group">
+        <h3>Course notes</h3>
+        <div class="jumps">
+          <a class="book" href="https://drive.google.com/file/d/1ePdQP71awh02QAQ3ETbdONxRmOtpGePx/view" target="_blank" rel="noopener">Sampling</a>
+          <a class="book" href="https://drive.google.com/file/d/1wSHqtfA38MoTzzCua0s8QM6znRQYkqg9/view" target="_blank" rel="noopener">Variability of samples</a>
+          <a class="book" href="https://drive.google.com/file/d/1T9mtHMAEOLXAw4jCCG_20nvXs4W-s2FG/view" target="_blank" rel="noopener">Confidence intervals</a>
+          <a class="book" href="https://drive.google.com/file/d/14RGKjs_82qgV0NNATdWycpM3C_7f5D9g/view" target="_blank" rel="noopener">Correlation & linear regression</a>
+          <a class="book" href="https://drive.google.com/file/d/1CI5F1c1uaiehiqePY_k9hnS_mfMbBBUh/view" target="_blank" rel="noopener">Classification</a>
+          <a class="book" href="https://drive.google.com/file/d/1SzpKe_SnFf9_mkLyhETz5-AiaBJBYJDv/view" target="_blank" rel="noopener">Arrays primer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>Reference content from <a href="https://data8.org/su26/reference/" target="_blank" rel="noopener">data8.org/su26/reference</a> · textbook: <a href="https://inferentialthinking.com" target="_blank" rel="noopener">Computational and Inferential Thinking</a> · exam traps mined from <a href="https://data8.org/su26/resources/" target="_blank" rel="noopener">past exams</a>.</span>
+    <span>Companion page: <a href="viz.html">the visualization rules</a>.</span>
+    <span>Press <kbd>/</kbd> to search · click a signature to copy · hover chart marks for values.</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="chart-tip" id="chart-tip" role="status"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ================= Module metadata =================
+  var MODULES = {
+    tables:     { name: "Tables",                   blurb: "The datascience <code>Table</code> — the core object of the course. Every demo below uses the same little <code>cones</code> table — the one the textbook itself uses in <a href='https://inferentialthinking.com/chapters/08/3/cross-classifying-by-more-than-one-variable' target='_blank' rel='noopener'>§ 8.3</a> — so you can see exactly what each method changes." },
+    predicates: { name: "Where predicates",         blurb: "Conditions passed to <code>tbl.where(column, …)</code>. Each demo shows which values in a column survive the filter. Prefix any predicate with <code>not_</code> to negate it." },
+    arrays:     { name: "Arrays & NumPy",            blurb: "Elementwise math and aggregation over NumPy arrays. Most demos use <code>nums = make_array(2, 7, 5, 9, 4)</code>." },
+    strings:    { name: "Strings",                   blurb: "Splitting, joining, and rewriting text." },
+    misc:       { name: "Simulation & optimization", blurb: "<code>datascience</code> helpers for sampling from a model and minimizing a function — the engine room of hypothesis tests and regression." }
+  };
+
+  // The cones table used across Table demos
+  var C_COLS = ["Flavor", "Color", "Price"];
+  var C_ROWS = [
+    ["strawberry", "pink",        "3.55"],
+    ["chocolate",  "light brown", "4.75"],
+    ["chocolate",  "dark brown",  "5.25"],
+    ["strawberry", "pink",        "5.25"],
+    ["bubblegum",  "pink",        "4.75"]
+  ];
+  function cones(extra) {
+    var s = { t: "table", cols: C_COLS, rows: C_ROWS };
+    if (extra) for (var k in extra) s[k] = extra[k];
+    return s;
+  }
+  var PTS_TBL = { t: "table", cols: ["x", "y"], rows: [["1","2.0"],["2","3.5"],["3","3.0"],["4","5.0"],["5","4.5"]] };
+
+  // ================= Function data =================
+  // demo: {cap?, call?, before?, after, mode:'h'|'v', bLabel?, aLabel?}   demos: [demo, ...]
+  var FNS = [
+    // ===== TABLES =====
+    { cat:"tables", sub:"Create", sig:'<span class="fn">Table</span>()', desc:"Instantiate a new, empty table — ready for columns to be added.", ret:"Table",
+      demo:{ call:"Table()", after:{t:"empty", txt:"0 rows × 0 columns"} } },
+    { cat:"tables", sub:"Create", sig:'<span class="fn">Table.read_table</span>(<span class="p">filename</span>)', desc:"Load a table from a file (usually a CSV).", params:[["filename","path to the file, as a string"]], ret:"Table",
+      demo:{ call:"cones = Table.read_table('cones.csv')", before:{t:"file", name:"cones.csv"}, after:cones() } },
+    { cat:"tables", sub:"Inspect", sig:'<span class="p">cones</span>.<span class="fn">num_rows</span>', desc:"The number of rows in the table.", ret:"int",
+      demo:{ call:"cones.num_rows", before:cones(), after:{t:"value", v:"5"} } },
+    { cat:"tables", sub:"Inspect", sig:'<span class="p">cones</span>.<span class="fn">num_columns</span>', desc:"The number of columns in the table.", ret:"int",
+      demo:{ call:"cones.num_columns", before:cones(), after:{t:"value", v:"3"} } },
+    { cat:"tables", sub:"Inspect", sig:'<span class="p">cones</span>.<span class="fn">labels</span>', desc:"The column labels (names) of the table.", ret:"array of str",
+      demo:{ call:"cones.labels", before:cones({hlHead:[0,1,2]}), after:{t:"array", v:["'Flavor'","'Color'","'Price'"]} } },
+    { cat:"tables", sub:"Inspect", sig:'<span class="p">cones</span>.<span class="fn">show</span>(<span class="p">n</span>)', desc:"Display the first n rows. With no argument, displays the entire table.", params:[["n","optional — number of rows to show"]], ret:"display",
+      demo:{ call:"cones.show(2)", anim:{k:"filter", keep:[0,1]}, before:cones({hlRow:[0,1]}), after:{t:"table", cols:C_COLS, rows:C_ROWS.slice(0,2), note:"… (3 rows omitted)"} } },
+    { cat:"tables", sub:"Column", sig:'<span class="p">cones</span>.<span class="fn">column</span>(<span class="p">col</span>)', desc:"The values of a single column, pulled out as an array.", params:[["col","column name (string) or index (int)"]], ret:"array",
+      demo:{ call:"cones.column('Price')", anim:{k:"fade"}, before:cones({hlCol:[2]}), after:{t:"array", v:["3.55","4.75","5.25","5.25","4.75"]} } },
+    { cat:"tables", sub:"Column", sig:'<span class="p">cones</span>.<span class="fn">select</span>(<span class="p">col1, col2, …</span>)', desc:"A copy of the table keeping only the given columns.", params:[["col","one or more column names or indices"]], ret:"Table",
+      demo:{ call:"cones.select('Flavor', 'Price')", anim:{k:"cols", keep:[0,2]}, before:cones({hlCol:[0,2]}), after:{t:"table", cols:["Flavor","Price"], rows:C_ROWS.map(function(r){return [r[0],r[2]];})} } },
+    { cat:"tables", sub:"Column", sig:'<span class="p">cones</span>.<span class="fn">drop</span>(<span class="p">col1, col2, …</span>)', desc:"A copy of the table without the given columns.", params:[["col","one or more column names or indices"]], ret:"Table",
+      demo:{ call:"cones.drop('Color')", anim:{k:"cols", keep:[0,2]}, before:cones({dimCol:[1]}), after:{t:"table", cols:["Flavor","Price"], rows:C_ROWS.map(function(r){return [r[0],r[2]];})} } },
+    { cat:"tables", sub:"Column", sig:'<span class="p">cones</span>.<span class="fn">with_columns</span>(<span class="p">name, values, …</span>)', desc:"A copy of the table with a column added, or an existing column replaced.", params:[["name","new column label (string)"],["values","an array of values, or a single value"]], ret:"Table",
+      demo:{ call:"cones.with_columns('Rating', make_array(4, 5, 3, 5, 4))", anim:{k:"fade"}, before:cones(), after:{t:"table", cols:["Flavor","Color","Price","Rating"], rows:C_ROWS.map(function(r,i){return r.concat([["4","5","3","5","4"][i]]);}), hlCol:[3]} } },
+    { cat:"tables", sub:"Column", sig:'<span class="p">cones</span>.<span class="fn">relabeled</span>(<span class="p">old, new</span>)', desc:"A new table with one column renamed; the original table is unchanged.", params:[["old","current column label"],["new","replacement label"]], ret:"Table",
+      demo:{ call:"cones.relabeled('Color', 'Shade')", anim:{k:"fade"}, before:cones({hlHead:[1]}), after:{t:"table", cols:["Flavor","Shade","Price"], rows:C_ROWS, hlHead:[1]} } },
+    { cat:"tables", sub:"Row", sig:'<span class="p">cones</span>.<span class="fn">where</span>(<span class="p">col, predicate</span>)', desc:"A copy of the table with only the rows where the column matches a predicate.", params:[["col","column name or index to test"],["predicate","an are.(…) condition"]], ret:"Table",
+      demo:{ call:"cones.where('Flavor', are.equal_to('chocolate'))", anim:{k:"filter", keep:[1,2]}, before:cones({hlRow:[1,2]}), after:{t:"table", cols:C_COLS, rows:[C_ROWS[1], C_ROWS[2]]} } },
+    { cat:"tables", sub:"Row", sig:'<span class="p">cones</span>.<span class="fn">take</span>(<span class="p">row_indices</span>)', desc:"A table of only the rows at the given index or indices. Rows are numbered from 0.", params:[["row_indices","a single int, or an array of ints"]], ret:"Table",
+      demo:{ call:"cones.take(make_array(0, 3))", anim:{k:"filter", keep:[0,3]}, before:cones({hlRow:[0,3]}), after:{t:"table", cols:C_COLS, rows:[C_ROWS[0], C_ROWS[3]]} },
+      trap:"<b>take</b> works on row <em>positions</em>; <code>column</code> works on labels. <code>tbl.take(0)</code> is a one-row <em>table</em>, but <code>tbl.column('x').item(0)</code> is a <em>value</em> — exams love asking which type you're holding." },
+    { cat:"tables", sub:"Row", sig:'<span class="p">cones</span>.<span class="fn">sort</span>(<span class="p">col, descending</span>)', desc:"A copy of the table sorted by a column. Ascending unless descending=True.", params:[["col","column name or index to sort by"],["descending","optional bool — sort high to low"]], ret:"Table",
+      demo:{ call:"cones.sort('Price', descending=True)", anim:{k:"sort", order:[2,3,1,4,0]}, before:cones({hlCol:[2]}), after:{t:"table", cols:C_COLS, rows:[C_ROWS[2],C_ROWS[3],C_ROWS[1],C_ROWS[4],C_ROWS[0]], hlCol:[2]} } },
+    { cat:"tables", sub:"Row", sig:'<span class="p">cones</span>.<span class="fn">row</span>(<span class="p">index</span>)', desc:"A single row of the table, as a Row object (not a table, not an array).", params:[["index","the row index (int)"]], ret:"Row",
+      demo:{ call:"cones.row(1)", before:cones({hlRow:[1]}), after:{t:"code", v:"Row(Flavor='chocolate', Color='light brown', Price=4.75)"} } },
+    { cat:"tables", sub:"Row", sig:'<span class="p">cones</span>.<span class="fn">rows</span>', desc:"All rows of the table, as an iterable Rows object.", ret:"Rows",
+      demo:{ call:"cones.rows", after:{t:"code", v:"Rows(Row('strawberry', 'pink', 3.55), …)", note:"iterate with <code>for r in cones.rows:</code>"} } },
+    { cat:"tables", sub:"Sample", sig:'<span class="p">cones</span>.<span class="fn">sample</span>(<span class="p">k, with_replacement</span>)', desc:"A new table of k rows sampled at random. k defaults to the full number of rows.", params:[["k","optional — number of rows to draw"],["with_replacement","optional bool (default True)"]], ret:"Table",
+      demo:{ call:"cones.sample(3)", anim:{k:"fade"}, before:cones(), after:{t:"table", cols:C_COLS, rows:[C_ROWS[1], C_ROWS[4], C_ROWS[1]], hlRow:[0,2], note:"row 1 was drawn twice — sampling is <em>with replacement</em> by default"} },
+      trap:"Defaults matter: <code>tbl.sample()</code> (with replacement) is the <b>bootstrap</b>; <code>tbl.sample(with_replacement=False)</code> is a <b>shuffle</b>, which is what permutation / A-B tests need. Mixing these up is a classic exam error.",
+      links:[{l:"§ 12.1 maternal smoking A/B", h:"https://inferentialthinking.com/chapters/12/1/ab-testing"},{l:"§ 13.2 the bootstrap", h:"https://inferentialthinking.com/chapters/13/2/bootstrap"}] },
+    { cat:"tables", sub:"Sample", sig:'<span class="p">cones</span>.<span class="fn">split</span>(<span class="p">n</span>)', desc:"Randomly split into two tables: the first has n rows sampled without replacement, the second has the rest.", params:[["n","int from 1 to num_rows − 1"]], ret:"(Table, Table)",
+      demo:{ call:"train, rest = cones.split(2)", anim:{k:"fade"}, before:cones(), after:{t:"stack", list:[
+        {cap:"first — 2 rows", t:"table", cols:C_COLS, rows:[C_ROWS[3], C_ROWS[0]]},
+        {cap:"second — the other 3", t:"table", cols:C_COLS, rows:[C_ROWS[1], C_ROWS[2], C_ROWS[4]]}
+      ]} } },
+    { cat:"tables", sub:"Transform", sig:'<span class="p">cones</span>.<span class="fn">apply</span>(<span class="p">function, col</span>)', desc:"Apply a function to every value in a column, returning an array of the results (not a table).", params:[["function","the function to apply"],["col","optional — the column to apply it to"]], ret:"array",
+      demo:{ call:"cones.apply(len, 'Flavor')", anim:{k:"fade"}, before:cones({hlCol:[0]}), after:{t:"array", v:["10","9","9","10","9"], note:"len('strawberry') = 10, len('chocolate') = 9, …"} },
+      trap:"<code>apply</code> returns an <b>array</b>, not a table — add it back with <code>with_columns</code>. Pass several column names — <code>tbl.apply(revenue, 'kayaks', 'boards')</code> — and the function gets one value from <em>each</em> per row, in that order. With no column argument it receives entire rows." },
+
+    // ---- group: deep dive ----
+    { cat:"tables", sub:"Aggregate", wide:true, sig:'<span class="p">cones</span>.<span class="fn">group</span>(<span class="p">col, collect</span>)', desc:"Collapse rows that share a value. One output row per unique value (or combination); the optional collect function aggregates every other column.", params:[["col","column name/index, or an array of them"],["collect","optional — function applied to each group's other columns"]], ret:"Table",
+      demos:[
+        { cap:"Count rows per group", call:"cones.group('Flavor')",
+          anim:{k:"chain", steps:[{k:"sort", order:[4,1,2,0,3]}, {k:"filter", keep:[4,1,0]}, {k:"cols", keep:[0]}]},
+          before:cones({rowTint:["t0","t1","t1","t0","t2"]}),
+          after:{t:"table", cols:["Flavor","count"], rows:[["bubblegum","1"],["chocolate","2"],["strawberry","2"]], rowTint:["t2","t1","t0"], note:"rows with the same tint collapsed into one"} },
+        { cap:"Aggregate with a collect function", call:"cones.group('Flavor', np.mean)",
+          after:{t:"table", cols:["Flavor","Color mean","Price mean"], rows:[["bubblegum","","4.75"],["chocolate","","5"],["strawberry","","4.4"]], dimCol:[1], note:"labels get a “<code>mean</code>” suffix; text columns can't be averaged → empty"} },
+        { cap:"Group by two columns", call:"cones.group(make_array('Flavor', 'Color'))",
+          after:{t:"table", cols:["Flavor","Color","count"], rows:[["bubblegum","pink","1"],["chocolate","dark brown","1"],["chocolate","light brown","1"],["strawberry","pink","2"]], note:"one row per <em>combination</em> that actually occurs"} },
+        { cap:"The Frankenstein-row trap", call:"cones.group('Flavor', min)",
+          after:{t:"table", cols:["Flavor","Color min","Price min"], rows:[["bubblegum","pink","4.75"],["chocolate","dark brown","4.75"],["strawberry","pink","3.55"]], hlRow:[1], note:"no cone is <em>dark brown at 4.75</em> — that's the min of each column <b>separately</b> (the cheapest chocolate cone is the light brown one). To keep whole rows: <code>cones.sort('Price').group('Flavor', first)</code> with <code>first = lambda a: a.item(0)</code>"} }
+      ],
+      trap:"The collect function runs on <b>every</b> remaining column <em>independently</em> — so <code>group('Flavor', min)</code> can invent rows that never existed. To get each group's actual best row, <b>sort first, then group with <code>first</code></b> (a real sp23 midterm question). Also: non-numeric columns come back empty under <code>np.mean</code>, and every label gets a suffix (<code>Price mean</code>).",
+      links:[{l:"§ 8.2 NBA salaries", h:"https://inferentialthinking.com/chapters/08/2/classifying-by-one-variable"}] },
+
+    // ---- pivot: deep dive ----
+    { cat:"tables", sub:"Aggregate", wide:true, sig:'<span class="p">cones</span>.<span class="fn">pivot</span>(<span class="p">col1, col2, values, collect</span>)', desc:"A cross-tabulation of two categorical columns: a grid with one column per unique value of col1 and one row per unique value of col2.", params:[["col1","values become the new columns"],["col2","values become the new rows"],["values","optional — column to aggregate in each cell"],["collect","optional — aggregation function (required with values)"]], ret:"Table",
+      demos:[
+        { cap:"Count each combination", call:"cones.pivot('Flavor', 'Color')", anim:{k:"fade"},
+          before:cones({colTint:["t0","t1",null], note:"tinted: <span style='color:var(--cat-tables)'>col1 → columns</span> · <span style='color:var(--cat-predicates)'>col2 → rows</span>"}),
+          after:{t:"table", cols:["Color","bubblegum","chocolate","strawberry"], headTint:[null,"t0","t0","t0"], colTint:["t1",null,null,null], rows:[["dark brown","0","1","0"],["light brown","0","1","0"],["pink","1","0","2"]]} },
+        { cap:"Aggregate a values column", call:"cones.pivot('Flavor', 'Color', values='Price', collect=sum)",
+          after:{t:"table", cols:["Color","bubblegum","chocolate","strawberry"], headTint:[null,"t0","t0","t0"], colTint:["t1",null,null,null], rows:[["dark brown","0","5.25","0"],["light brown","0","4.75","0"],["pink","4.75","0","8.8"]], note:"each cell = <code>sum</code> of Price for that combination"} }
+      ],
+      trap:"Argument order is the classic mistake: the <b>first</b> argument's values become the <b>columns</b>, the second's become the rows. Combinations that never occur are filled with <code>0</code> — so a pivot can contain zeros that were never in your data.",
+      links:[{l:"§ 8.3 cones, cross-classified", h:"https://inferentialthinking.com/chapters/08/3/cross-classifying-by-more-than-one-variable"}] },
+
+    // ---- join: deep dive ----
+    { cat:"tables", sub:"Combine", wide:true, sig:'<span class="p">tblA</span>.<span class="fn">join</span>(<span class="p">colA, tblB, colB</span>)', desc:"Match rows of two tables on a shared value: for every value of colA that also appears in colB, glue the matching rows together.", params:[["colA","column in tblA to match on"],["tblB","the other table"],["colB","optional — matching column in tblB (defaults to colA)"]], ret:"Table",
+      demos:[
+        { cap:"Only matches survive", call:"prices.join('Flavor', ratings, 'Kind')",
+          before:{t:"stack", list:[
+            {cap:"prices", t:"table", cols:["Flavor","Price"], rows:[["strawberry","3.55"],["chocolate","4.75"],["bubblegum","4.75"]], rowTint:["t0","t1","dim"]},
+            {cap:"ratings", t:"table", cols:["Kind","Stars"], rows:[["chocolate","4"],["strawberry","5"],["vanilla","3"]], rowTint:["t1","t0","dim"]}
+          ]},
+          after:{t:"table", cols:["Flavor","Price","Stars"], rows:[["chocolate","4.75","4"],["strawberry","3.55","5"]], rowTint:["t1","t0"], note:"bubblegum and vanilla had no partner — dropped. Result is sorted by the join column."},
+          mode:"h" }
+      ],
+      trap:"<code>join</code> keeps <b>only</b> values present in both tables (an inner join) — unmatched rows vanish silently. And if a value appears <em>j</em> times in one table and <em>k</em> times in the other, the result has <em>j × k</em> rows for it, so joins can make tables <b>bigger</b>.",
+      links:[{l:"§ 8.4 cones ⋈ ratings", h:"https://inferentialthinking.com/chapters/08/4/joining-tables-by-columns"}] },
+
+    { cat:"tables", sub:"Aggregate", sig:'<span class="p">cones</span>.<span class="fn">bin</span>(<span class="p">col, bins</span>)', desc:"Count how many values fall into each interval. Returns a two-column table of bin edges and counts — the numbers behind a histogram.", params:[["col","numerical column to bin"],["bins","optional — an array of edges, or a number of bins"]], ret:"Table",
+      demo:{ call:"cones.bin('Price', bins=make_array(3.5, 4.5, 5.5))", anim:{k:"fade"}, before:cones({hlCol:[2]}), after:{t:"table", cols:["bin","Price count"], rows:[["3.5","1"],["4.5","4"],["5.5","0"]], note:"[3.5, 4.5) holds 3.55 · [4.5, 5.5) holds 4.75, 5.25, 5.25, 4.75 · the last row only counts values exactly equal to 5.5"} } },
+
+    // ---- visualization ----
+    { cat:"tables", sub:"Visualize", wide:true, sig:'<span class="p">tbl</span>.<span class="fn">scatter</span>(<span class="p">x, y, fit_line</span>)', desc:"A scatter plot with one point for each row of the table. The go-to picture for association between two numerical variables.", params:[["x","column for the horizontal axis"],["y","column for the vertical axis"],["fit_line","optional bool — overlay the least-squares regression line"]], ret:"plot",
+      demos:[
+        { call:"pts.scatter('x', 'y', fit_line=True)", before:PTS_TBL, after:{t:"chart", kind:"scatter", note:"each point is one row; the cloud slopes up → <em>positive association</em>"}, mode:"h" }
+      ],
+      trap:"Scatter needs <b>two numerical</b> columns, and it shows <em>association, not causation</em>. Exams ask you to read the sign and strength of association from the cloud — and whether a linear fit is even appropriate (curved clouds say no).",
+      links:[{l:"§ 15.1 correlation (hybrid cars)", h:"https://inferentialthinking.com/chapters/15/1/correlation"},{l:"§ 15.5 residual diagnostics", h:"https://inferentialthinking.com/chapters/15/5/visual-diagnostics"}] },
+    { cat:"tables", sub:"Visualize", sig:'<span class="p">pts</span>.<span class="fn">plot</span>(<span class="p">x, y</span>)', desc:"A line graph with one point per row, connected in order — best when x is sequential, like time.", params:[["x","column for the horizontal axis"],["y","optional — column(s) for the vertical axis"]], ret:"plot",
+      demo:{ call:"pts.plot('x', 'y')", before:PTS_TBL, after:{t:"chart", kind:"line"} } },
+    { cat:"tables", sub:"Visualize", wide:true, sig:'<span class="p">counts</span>.<span class="fn">barh</span>(<span class="p">categories, values</span>)', desc:"A horizontal bar chart — one bar per category, length proportional to its value. For categorical data.", params:[["categories","column of category labels"],["values","optional — column of bar lengths (defaults to all other columns)"]], ret:"plot",
+      demos:[
+        { call:"cones.group('Flavor').barh('Flavor')", before:{t:"table", cols:["Flavor","count"], rows:[["bubblegum","1"],["chocolate","2"],["strawberry","2"]]}, after:{t:"chart", kind:"barh"}, mode:"h" }
+      ],
+      trap:"<b>barh is for categorical data; hist is for numerical distributions.</b> “Which plot is appropriate?” is a recurring exam question. Bar lengths compare values across categories — areas mean nothing here, unlike a histogram. A common pipeline is <code>group</code> then <code>barh</code>." },
+    { cat:"tables", sub:"Visualize", wide:true, sig:'<span class="p">tbl</span>.<span class="fn">hist</span>(<span class="p">col, unit, bins, group</span>)', desc:"A histogram of a numerical column, drawn to the density scale: the y-axis is percent per unit, so the area of each bar — not its height — is the percent of data in that bin.", params:[["col","numerical column to plot"],["unit","optional — unit label for the axis"],["bins","optional — array of bin edges"],["group","optional — overlay one histogram per category"]], ret:"plot",
+      demos:[
+        { call:"people.hist('Age', bins=make_array(0, 20, 40, 55, 80), unit='year')",
+          after:{t:"chart", kind:"hist", note:"same 100 people on both scales — only the y-axis changes. On the density scale, compare <b>areas</b>, never heights."} }
+      ],
+      trap:"The y-axis is <b>density</b> (percent per unit), not a count — “height = proportion” is a recurring <em>false</em> T/F. <b>percent in bin = height × width</b>; a head-count = height × width × n. Merging two adjacent equal-width bins gives height <code>(x + y)/2</code> — areas add while the width doubles. All bar areas sum to 100%.",
+      links:[{l:"§ 7.2 movie-gross histogram", h:"https://inferentialthinking.com/chapters/07/2/visualizing-numerical-distributions"}] },
+
+    // ===== PREDICATES =====
+    { cat:"predicates", sig:'<span class="fn">are.equal_to</span>(<span class="p">x</span>)', desc:"The value is equal to x.", ret:"predicate",
+      demo:predDemo("are.equal_to(5)", NUMV(), [2]) },
+    { cat:"predicates", sig:'<span class="fn">are.above</span>(<span class="p">x</span>)', desc:"The value is strictly greater than x.", ret:"predicate",
+      demo:predDemo("are.above(5)", NUMV(), [3,4]) },
+    { cat:"predicates", sig:'<span class="fn">are.above_or_equal_to</span>(<span class="p">x</span>)', desc:"The value is greater than or equal to x.", ret:"predicate",
+      demo:predDemo("are.above_or_equal_to(5)", NUMV(), [2,3,4]) },
+    { cat:"predicates", sig:'<span class="fn">are.below</span>(<span class="p">x</span>)', desc:"The value is strictly less than x.", ret:"predicate",
+      demo:predDemo("are.below(5)", NUMV(), [0,1]) },
+    { cat:"predicates", sig:'<span class="fn">are.below_or_equal_to</span>(<span class="p">x</span>)', desc:"The value is less than or equal to x.", ret:"predicate",
+      demo:predDemo("are.below_or_equal_to(5)", NUMV(), [0,1,2]) },
+    { cat:"predicates", sig:'<span class="fn">are.between</span>(<span class="p">x, y</span>)', desc:"The value is at least x and less than y.", ret:"predicate",
+      demo:predDemo("are.between(4, 7)", NUMV(), [1,2], "4 is included, 7 is excluded — half-open, like np.arange") },
+    { cat:"predicates", sig:'<span class="fn">are.between_or_equal_to</span>(<span class="p">x, y</span>)', desc:"The value is at least x and at most y.", ret:"predicate",
+      demo:predDemo("are.between_or_equal_to(4, 7)", NUMV(), [1,2,3], "both endpoints included") },
+    { cat:"predicates", sig:'<span class="fn">are.strictly_between</span>(<span class="p">x, y</span>)', desc:"The value is greater than x and less than y.", ret:"predicate",
+      demo:predDemo("are.strictly_between(4, 7)", NUMV(), [2], "both endpoints excluded") },
+    { cat:"predicates", sig:'<span class="fn">are.contained_in</span>(<span class="p">A</span>)', desc:"The value is a substring of the string A, or an element of the list/array A.", params:[["A","a string, list, or array"]], ret:"predicate",
+      demo:predDemo("are.contained_in(make_array('pink', 'red'))", ["'pink'","'brown'","'red'"], [0,2]),
+      trap:"Mirror images: <code>contained_in(A)</code> asks “is the value <b>inside</b> A?” (membership); <code>containing(s)</code> asks “does the value <b>contain</b> s?” (substring). Exams pair them as distractors — e.g. filtering to a saved array of artists is <code>contained_in</code>." },
+    { cat:"predicates", sig:'<span class="fn">are.containing</span>(<span class="p">s</span>)', desc:"The value (a string) contains the substring s.", params:[["s","a substring to look for"]], ret:"predicate",
+      demo:predDemo("are.containing('berry')", ["'strawberry'","'chocolate'","'blueberry'"], [0,2]) },
+    { cat:"predicates", sig:'<span class="fn">are.not_</span><span class="p">…</span>(<span class="p">…</span>)', desc:"Negate any predicate by prefixing it with not_ — e.g. are.not_equal_to, are.not_above, are.not_contained_in.", ret:"predicate",
+      demo:predDemo("are.not_equal_to(5)", NUMV(), [0,1,3,4]) },
+
+    // ===== ARRAYS & NUMPY =====
+    { cat:"arrays", sig:'<span class="fn">make_array</span>(<span class="p">v1, v2, …</span>)', desc:"Build a NumPy array from the values passed in.", params:[["v","one or more values of the same type"]], ret:"array",
+      demo:{ call:"nums = make_array(2, 7, 5, 9, 4)", after:{t:"array", v:["2","7","5","9","4"]} } },
+    { cat:"arrays", sig:'<span class="fn">np.array</span>(<span class="p">obj</span>)', desc:"Convert another object (e.g. a Row) into a NumPy array.", params:[["obj","the object to convert"]], ret:"array",
+      demo:{ call:"np.array(cones.row(0))", before:{t:"code", v:"Row('strawberry', 'pink', 3.55)"}, after:{t:"array", v:["'strawberry'","'pink'","'3.55'"]} } },
+    { cat:"arrays", sig:'<span class="p">array</span>.<span class="fn">item</span>(<span class="p">index</span>)', desc:"The single element at the given index (counting from 0).", params:[["index","position in the array (int)"]], ret:"element",
+      demo:{ call:"prices.item(1)", before:{t:"array", v:["3.55","4.75","5.25"], hl:[1]}, after:{t:"value", v:"4.75"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">max</span>(<span class="p">array</span>)', desc:"The largest value in the array.", ret:"value",
+      demo:{ call:"max(nums)", before:{t:"array", v:["2","7","5","9","4"], hl:[3]}, after:{t:"value", v:"9"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">min</span>(<span class="p">array</span>)', desc:"The smallest value in the array.", ret:"value",
+      demo:{ call:"min(nums)", before:{t:"array", v:["2","7","5","9","4"], hl:[0]}, after:{t:"value", v:"2"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">sum</span>(<span class="p">array</span>)', desc:"The sum of all values in the array.", ret:"value",
+      demo:{ call:"sum(nums)", before:{t:"array", v:["2","7","5","9","4"]}, after:{t:"value", v:"27"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">len</span>(<span class="p">array</span>)', desc:"The number of elements in the array.", ret:"int",
+      demo:{ call:"len(nums)", before:{t:"array", v:["2","7","5","9","4"]}, after:{t:"value", v:"5"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">percentile</span>(<span class="p">p, array</span>)', desc:"The p-th percentile: the first value in sorted order that is at least p% of the way through.", params:[["p","a percentile from 0 to 100"],["array","the data"]], ret:"value",
+      demo:{ call:"percentile(50, make_array(7, 1, 3, 9, 5))", before:{t:"array", v:["7","1","3","9","5"], hl:[4]}, after:{t:"value", v:"5"}, mode:"h",
+        note:"sorted: 1 3 <b>5</b> 7 9 — 50% of 5 values = 2.5, so take the 3rd" },
+      trap:"Data 8's <code>percentile</code> always returns an <b>actual element</b> of the array — no interpolation (unlike <code>np.percentile</code>). And it's how every bootstrap CI ends: a c% interval is <code>[percentile((100−c)/2, stats), percentile((100+c)/2, stats)]</code> — e.g. 2.5 and 97.5 for 95%, 10 and 90 for 80%.",
+      links:[{l:"§ 13.3 confidence intervals", h:"https://inferentialthinking.com/chapters/13/3/confidence-intervals"}] },
+    { cat:"arrays", sig:'<span class="fn">abs</span>(<span class="p">x</span>) &nbsp;·&nbsp; <span class="fn">np.abs</span>(<span class="p">array</span>)', desc:"The absolute value of a number, or of each element of an array.", ret:"value / array",
+      demo:{ call:"np.abs(make_array(-3, 4, -5))", before:{t:"array", v:["-3","4","-5"]}, after:{t:"array", v:["3","4","5"]}, mode:"h",
+        note:"used in <b>total variation distance</b>: <code>sum(np.abs(a − b)) / 2</code>" } },
+    { cat:"arrays", sig:'<span class="fn">round</span>(<span class="p">x, decimals</span>) &nbsp;·&nbsp; <span class="fn">np.round</span>(<span class="p">array, decimals</span>)', desc:"Round to the nearest integer, or to a number of decimal places.", params:[["decimals","optional — digits to keep"]], ret:"value / array",
+      demo:{ call:"np.round(make_array(3.14159, 2.71828), 2)", before:{t:"array", v:["3.14159","2.71828"]}, after:{t:"array", v:["3.14","2.72"]}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">np.mean</span>(<span class="p">array</span>) &nbsp;·&nbsp; <span class="fn">np.average</span>(<span class="p">array</span>)', desc:"The arithmetic mean of the array.", ret:"value",
+      demo:{ call:"np.mean(nums)", before:{t:"array", v:["2","7","5","9","4"]}, after:{t:"value", v:"5.4"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">np.std</span>(<span class="p">array</span>)', desc:"The standard deviation: root mean square of deviations from the mean.", ret:"value",
+      demo:{ call:"np.std(nums)", before:{t:"array", v:["2","7","5","9","4"]}, after:{t:"value", v:"≈ 2.42"}, mode:"h",
+        note:"in standard units: <code>(x − mean) / sd</code>" } },
+    { cat:"arrays", sig:'<span class="fn">np.diff</span>(<span class="p">array</span>)', desc:"The difference between each pair of adjacent elements. The result is one shorter than the input.", ret:"array",
+      demo:{ call:"np.diff(make_array(2, 7, 5, 9))", before:{t:"array", v:["2","7","5","9"]}, after:{t:"array", v:["5","-2","4"]}, mode:"h", note:"length shrinks by 1" } },
+    { cat:"arrays", sig:'<span class="fn">np.sqrt</span>(<span class="p">array</span>)', desc:"The square root of each element.", ret:"array",
+      demo:{ call:"np.sqrt(make_array(4, 9, 16))", before:{t:"array", v:["4","9","16"]}, after:{t:"array", v:["2","3","4"]}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">np.arange</span>(<span class="p">start, stop, step</span>)', desc:"Evenly spaced values from start, stepping by step, up to but not including stop.", params:[["start","first value"],["stop","upper bound — excluded"],["step","increment between values"]], ret:"array",
+      demo:{ call:"np.arange(0, 10, 2)", after:{t:"array", v:["0","2","4","6","8"], note:"the stop value (10) is <b>excluded</b>"} } },
+    { cat:"arrays", sig:'<span class="fn">np.random.choice</span>(<span class="p">array, n, replace</span>)', desc:"Pick one item (or n items) from the array at random.", params:[["array","the values to draw from"],["n","optional — how many to pick"],["replace","optional bool (default True)"]], ret:"value / array",
+      demo:{ call:"np.random.choice(coin, 4)", before:{t:"array", v:["'heads'","'tails'"]}, after:{t:"array", v:["'tails'","'heads'","'tails'","'tails'"], note:"drawn <em>with replacement</em> by default"} },
+      trap:"Count outcomes with <code>np.count_nonzero(outcomes == 'heads')</code> — a comparison on an array gives a boolean array, and this is the standard simulation pattern on exams." },
+    { cat:"arrays", sig:'<span class="fn">np.count_nonzero</span>(<span class="p">array</span>)', desc:"The number of nonzero — or True — elements in the array.", ret:"int",
+      demo:{ call:"np.count_nonzero(flips == 'heads')", before:{t:"array", v:["True","False","True","True"]}, after:{t:"value", v:"3"}, mode:"h" } },
+    { cat:"arrays", sig:'<span class="fn">np.append</span>(<span class="p">array, item</span>)', desc:"A copy of the array with one item added to the end — the original is unchanged.", params:[["array","the original array"],["item","value to append"]], ret:"array",
+      demo:{ call:"np.append(make_array(2, 7, 5), 9)", before:{t:"array", v:["2","7","5"]}, after:{t:"array", v:["2","7","5","9"], hl:[3]}, mode:"h",
+        note:"in simulation loops: <code>results = np.append(results, new_stat)</code>" } },
+
+    // ===== STRINGS =====
+    { cat:"strings", sig:'<span class="fn">len</span>(<span class="p">str</span>)', desc:"The number of characters in the string.", ret:"int",
+      demo:{ call:"len('strawberry')", before:{t:"array", v:["'strawberry'"]}, after:{t:"value", v:"10"}, mode:"h" } },
+    { cat:"strings", sig:'<span class="p">str</span>.<span class="fn">split</span>(<span class="p">separator</span>)', desc:"Split the string into a list, breaking at each separator.", params:[["separator","the delimiter to split on"]], ret:"list",
+      demo:{ call:"'straw,choc,mint'.split(',')", before:{t:"array", v:["'straw,choc,mint'"]}, after:{t:"array", v:["'straw'","'choc'","'mint'"]} } },
+    { cat:"strings", sig:'<span class="p">str</span>.<span class="fn">join</span>(<span class="p">array</span>)', desc:"Combine each element of the array into one string, placing str between elements.", params:[["array","the pieces to join"]], ret:"str",
+      demo:{ call:"' & '.join(make_array('straw', 'choc'))", before:{t:"array", v:["'straw'","'choc'"]}, after:{t:"value", v:"'straw & choc'"}, mode:"h" } },
+    { cat:"strings", sig:'<span class="p">str</span>.<span class="fn">replace</span>(<span class="p">old, new</span>)', desc:"Replace every occurrence of old in the string with new.", params:[["old","substring to find"],["new","replacement text"]], ret:"str",
+      demo:{ call:"'strawberry'.replace('straw', 'blue')", before:{t:"array", v:["'strawberry'"]}, after:{t:"value", v:"'blueberry'"}, mode:"h" } },
+
+    // ===== MISC =====
+    { cat:"misc", sig:'<span class="fn">sample_proportions</span>(<span class="p">n, model</span>)', desc:"Draw n items from a categorical distribution, then report the proportion that landed in each category. The result has the same length as the model and sums to 1.", params:[["n","number of draws (int)"],["model","array of probabilities that sum to 1"]], ret:"array",
+      demo:{ call:"sample_proportions(100, make_array(0.5, 0.3, 0.2))",
+        before:{t:"array", v:["0.5","0.3","0.2"]}, bLabel:"model proportions",
+        after:{t:"array", v:["0.53","0.28","0.19"]}, aLabel:"one random sample of 100" },
+      trap:"It returns <b>proportions, not counts</b> — multiply by n when a question asks how many. In a goodness-of-fit test, each simulation round draws a fresh <code>sample_proportions(n, model)</code> and scores it against the model with <b>TVD</b>: <code>sum(np.abs(sim − model)) / 2</code>.",
+      links:[{l:"§ 11.2 Alameda juries · TVD", h:"https://inferentialthinking.com/chapters/11/2/multiple-categories"},{l:"§ 11.1 Swain v. Alabama", h:"https://inferentialthinking.com/chapters/11/1/assessing-a-model"}] },
+    { cat:"misc", sig:'<span class="fn">minimize</span>(<span class="p">function</span>)', desc:"The argument value(s) at which the function's output is smallest. In Data 8, this is how you find the least-squares regression line.", params:[["function","the function to minimize"]], ret:"value / array",
+      demo:{ call:"minimize(f)   # f(x) = (x − 2)² + 1",
+        before:{t:"chart", kind:"mincurve"}, bLabel:"the function",
+        after:{t:"value", v:"2", note:"the x where f(x) bottoms out"} },
+      trap:"<code>minimize(mse)</code> on a mean-squared-error function returns the <b>slope and intercept</b> of the best-fit line — the array of inputs, not the minimum output value.",
+      links:[{l:"§ 15.3 Little Women · least squares", h:"https://inferentialthinking.com/chapters/15/3/method-of-least-squares"}] }
+  ];
+
+  // helpers used above
+  function NUMV(){ return ["2","4","5","7","9"]; }
+  function predDemo(call, vals, pass, note){
+    return { call:call,
+      before:{t:"array", v:vals}, bLabel:"column values",
+      after:{t:"array", v:vals, mark:true, pass:pass, note:note}, aLabel:"kept by where", mode:"v" };
+  }
+
+  // ================= Renderers =================
+  function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function plain(html){ var d=document.createElement("div"); d.innerHTML=html; return d.textContent; }
+
+  function renderTable(s){
+    var t = el("div","mini-table");
+    t.style.gridTemplateColumns = "repeat(" + s.cols.length + ", auto)";
+    t.setAttribute("role","table");
+    s.cols.forEach(function(c,j){
+      var th = el("div","mt-c mt-h"); th.textContent = c;
+      th.dataset.r = "h"; th.dataset.c = j;
+      if (s.hlHead && s.hlHead.indexOf(j)>-1) th.classList.add("hl-h");
+      if (s.headTint && s.headTint[j]) th.classList.add(s.headTint[j]);
+      if (s.dimCol && s.dimCol.indexOf(j)>-1) th.classList.add("dim");
+      t.appendChild(th);
+    });
+    s.rows.forEach(function(r,i){
+      r.forEach(function(v,j){
+        var td = el("div","mt-c"); td.textContent = v;
+        td.dataset.r = i; td.dataset.c = j;
+        var cls = "";
+        if (s.hlRow && s.hlRow.indexOf(i)>-1) cls = "hl";
+        if (s.hlCol && s.hlCol.indexOf(j)>-1) cls = "hl";
+        if (s.dimCol && s.dimCol.indexOf(j)>-1) cls = "dim";
+        if (s.rowTint && s.rowTint[i]) cls = s.rowTint[i] === "dim" ? "dim" : s.rowTint[i];
+        if (s.colTint && s.colTint[j]) cls = s.colTint[j];
+        if (cls) td.classList.add(cls);
+        t.appendChild(td);
+      });
+    });
+    return t;
+  }
+
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // FLIP: measure, mutate, invert, play
+  function flipCells(grid, mutate){
+    var cells = Array.prototype.slice.call(grid.children);
+    var first = cells.map(function(c){ return [c, c.getBoundingClientRect()]; });
+    mutate();
+    first.forEach(function(pair){
+      var c = pair[0], f = pair[1];
+      if (!grid.contains(c)) return;
+      var l = c.getBoundingClientRect();
+      var dx = f.left - l.left, dy = f.top - l.top;
+      if (dx || dy) {
+        c.style.transition = "none";
+        c.style.transform = "translate(" + dx + "px," + dy + "px)";
+        requestAnimationFrame(function(){
+          c.style.transition = "transform .4s cubic-bezier(.2,.7,.3,1)";
+          c.style.transform = "";
+        });
+      }
+    });
+  }
+
+  function runAnim(anim, grid, done){
+    if (anim.k === "chain") {
+      var i = 0;
+      (function next(){
+        if (i >= anim.steps.length) { done(); return; }
+        runAnim(anim.steps[i++], grid, next);
+      })();
+      return;
+    }
+    var cells = Array.prototype.slice.call(grid.children);
+    if (anim.k === "filter" || anim.k === "cols") {
+      var out = cells.filter(function(c){
+        if (anim.k === "filter") return c.dataset.r !== "h" && anim.keep.indexOf(+c.dataset.r) === -1;
+        return anim.keep.indexOf(+c.dataset.c) === -1;
+      });
+      out.forEach(function(c){ c.classList.add("out"); });
+      setTimeout(function(){
+        flipCells(grid, function(){
+          if (anim.k === "cols") grid.style.gridTemplateColumns = "repeat(" + anim.keep.length + ", auto)";
+          out.forEach(function(c){ grid.removeChild(c); });
+        });
+        setTimeout(done, 480);
+      }, 420);
+    } else if (anim.k === "sort") {
+      setTimeout(function(){
+        flipCells(grid, function(){
+          var byRow = {};
+          Array.prototype.forEach.call(grid.querySelectorAll(".mt-c:not(.mt-h)"), function(c){
+            (byRow[c.dataset.r] = byRow[c.dataset.r] || []).push(c);
+          });
+          anim.order.forEach(function(r){ (byRow[r] || []).forEach(function(c){ grid.appendChild(c); }); });
+        });
+        setTimeout(done, 550);
+      }, 200);
+    } else { // fade morph
+      var spec = grid.closest(".spec") || grid;
+      spec.style.transition = "opacity .3s ease, transform .3s ease";
+      spec.style.opacity = "0"; spec.style.transform = "translateY(-4px)";
+      setTimeout(done, 320);
+    }
+  }
+
+  function buildStage(d){
+    var stage = el("div","stage");
+    var bar = el("div","stage-bar");
+    var seg = el("div","seg");
+    var bBtn = el("button",null,"before"), aBtn = el("button",null,"after");
+    bBtn.type = "button"; aBtn.type = "button";
+    seg.appendChild(bBtn); seg.appendChild(aBtn);
+    var play = el("button","play","▶ play");
+    play.type = "button"; play.setAttribute("aria-label","Animate the transformation");
+    bar.appendChild(seg); bar.appendChild(play);
+    var body = el("div","stage-body");
+    stage.appendChild(bar); stage.appendChild(body);
+
+    var view = "before", animating = false;
+    function show(v, fade){
+      view = v;
+      bBtn.setAttribute("aria-pressed", v === "before" ? "true" : "false");
+      aBtn.setAttribute("aria-pressed", v === "after" ? "true" : "false");
+      body.innerHTML = "";
+      var spec = renderSpec(v === "before" ? d.before : d.after);
+      if (fade && !REDUCE) spec.classList.add("stage-fade");
+      body.appendChild(spec);
+    }
+    bBtn.addEventListener("click", function(){ if (!animating) show("before", true); });
+    aBtn.addEventListener("click", function(){ if (!animating) show("after", true); });
+    play.addEventListener("click", function(){
+      if (animating) return;
+      if (REDUCE) { show("after", false); play.textContent = "↻ replay"; return; }
+      show("before", false);
+      var grid = body.querySelector(".mini-table");
+      if (!grid) { show("after", true); return; }
+      animating = true; play.textContent = "…";
+      runAnim(d.anim, grid, function(){
+        show("after", true);
+        animating = false; play.textContent = "↻ replay";
+      });
+    });
+    show("before", false);
+    return stage;
+  }
+
+  function renderSpec(s){
+    var box = el("div","spec");
+    if (s.t === "table") box.appendChild(renderTable(s));
+    else if (s.t === "stack") {
+      var st = el("div"); st.style.display="flex"; st.style.flexDirection="column"; st.style.gap="8px";
+      s.list.forEach(function(sub){
+        if (sub.cap) st.appendChild(el("div","demo-tag", esc(sub.cap)));
+        st.appendChild(renderSpec(sub));
+      });
+      box.appendChild(st);
+    }
+    else if (s.t === "array") {
+      var c = el("div","chips");
+      c.insertAdjacentHTML("beforeend",'<span style="color:var(--ink-faint);font-family:ui-monospace,monospace;font-size:11px">[</span>');
+      s.v.forEach(function(v,i){
+        var ch = el("span","chip");
+        if (s.mark) {
+          if (s.pass.indexOf(i)>-1){ ch.className="chip on"; ch.textContent="✓ "+v; }
+          else { ch.className="chip off"; ch.textContent="✕ "+v; }
+        } else {
+          ch.textContent = v;
+          if (s.hl && s.hl.indexOf(i)>-1) ch.className = "chip hl";
+        }
+        c.appendChild(ch);
+      });
+      c.insertAdjacentHTML("beforeend",'<span style="color:var(--ink-faint);font-family:ui-monospace,monospace;font-size:11px">]</span>');
+      box.appendChild(c);
+    }
+    else if (s.t === "value") box.appendChild(el("div","big-val", esc(s.v)));
+    else if (s.t === "code") { var cd = el("code","mini-code"); cd.textContent = s.v; box.appendChild(cd); }
+    else if (s.t === "empty") box.appendChild(el("div","empty-tbl", esc(s.txt)));
+    else if (s.t === "file") box.appendChild(el("span","file-chip",
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>' + esc(s.name)));
+    else if (s.t === "chart") {
+      if (s.kind === "hist") box.appendChild(buildHist());
+      else box.innerHTML = CHARTS[s.kind]();
+    }
+    if (s.note) box.appendChild(el("div","mini-note", s.note));
+    return box;
+  }
+
+  function renderDemo(d){
+    var wrap = el("div","demo");
+    if (d.cap) wrap.appendChild(el("div","demo-cap", esc(d.cap)));
+    if (d.call) wrap.appendChild(el("code","demo-call",'<span class="c">&gt;&gt;&gt;</span> ' + esc(d.call)));
+    if (d.anim && d.before && d.before.t === "table" && d.after) {
+      wrap.appendChild(buildStage(d));
+      return wrap;
+    }
+    var flow = el("div","demo-flow" + (d.mode === "h" ? "" : " v"));
+    function side(label, spec){
+      var s = el("div","demo-side");
+      s.appendChild(el("span","demo-tag", esc(label)));
+      s.appendChild(renderSpec(spec));
+      return s;
+    }
+    if (d.before) {
+      flow.appendChild(side(d.bLabel || "before", d.before));
+      flow.appendChild(el("span","demo-arrow", d.mode === "h" ? "→" : "↓"));
+      flow.appendChild(side(d.aLabel || "after", d.after));
+    } else {
+      flow.appendChild(side(d.aLabel || "result", d.after));
+    }
+    wrap.appendChild(flow);
+    return wrap;
+  }
+
+  // ================= Micro-charts (SVG) =================
+  function lin(v,d0,d1,r0,r1){ return r0 + (v-d0)/(d1-d0)*(r1-r0); }
+  function svgWrap(w,h,inner,label){
+    return '<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+label+'" class="mini-chart">'+inner+'</svg>';
+  }
+  var PTS = [[1,2],[2,3.5],[3,3],[4,5],[5,4.5]];
+
+  var CHARTS = {
+    scatter: function(){
+      var W=280,H=170,L=30,R=12,T=14,B=26;
+      var sx=function(v){return lin(v,0.5,5.5,L,W-R);}, sy=function(v){return lin(v,1.5,5.5,H-B,T);};
+      var s="";
+      [2,3,4,5].forEach(function(g){ s+='<line class="grid" x1="'+L+'" y1="'+sy(g)+'" x2="'+(W-R)+'" y2="'+sy(g)+'"/><text x="'+(L-5)+'" y="'+(sy(g)+3)+'" text-anchor="end">'+g+'</text>'; });
+      [1,2,3,4,5].forEach(function(g){ s+='<text x="'+sx(g)+'" y="'+(H-B+13)+'" text-anchor="middle">'+g+'</text>'; });
+      s+='<line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'"/>';
+      var f=function(x){return .65*x+1.65;};
+      s+='<line class="fit" x1="'+sx(0.7)+'" y1="'+sy(f(0.7))+'" x2="'+sx(5.3)+'" y2="'+sy(f(5.3))+'"/>';
+      s+='<text class="anno" x="'+(W-R)+'" y="'+(T-3)+'" text-anchor="end">fit_line=True</text>';
+      PTS.forEach(function(p){
+        s+='<circle class="pt" cx="'+sx(p[0])+'" cy="'+sy(p[1])+'" r="4"/>';
+        s+='<circle class="hit" cx="'+sx(p[0])+'" cy="'+sy(p[1])+'" r="10" data-tip="x = '+p[0]+', y = '+p[1]+'"/>';
+      });
+      return svgWrap(W,H,s,"Scatter plot of y against x with an upward-sloping fit line");
+    },
+    line: function(){
+      var W=280,H=160,L=30,R=12,T=12,B=26;
+      var sx=function(v){return lin(v,0.5,5.5,L,W-R);}, sy=function(v){return lin(v,1.5,5.5,H-B,T);};
+      var s="";
+      [2,3,4,5].forEach(function(g){ s+='<line class="grid" x1="'+L+'" y1="'+sy(g)+'" x2="'+(W-R)+'" y2="'+sy(g)+'"/><text x="'+(L-5)+'" y="'+(sy(g)+3)+'" text-anchor="end">'+g+'</text>'; });
+      [1,2,3,4,5].forEach(function(g){ s+='<text x="'+sx(g)+'" y="'+(H-B+13)+'" text-anchor="middle">'+g+'</text>'; });
+      s+='<line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'"/>';
+      var path = PTS.map(function(p,i){ return (i?"L":"M")+sx(p[0])+" "+sy(p[1]); }).join(" ");
+      s+='<path class="ln" d="'+path+'"/>';
+      PTS.forEach(function(p,i){
+        s+='<circle class="pt" cx="'+sx(p[0])+'" cy="'+sy(p[1])+'" r="'+(i===PTS.length-1?4:2.5)+'"/>';
+        s+='<circle class="hit" cx="'+sx(p[0])+'" cy="'+sy(p[1])+'" r="10" data-tip="x = '+p[0]+', y = '+p[1]+'"/>';
+      });
+      return svgWrap(W,H,s,"Line graph of y against x, rising overall");
+    },
+    barh: function(){
+      var items=[["bubblegum",1],["chocolate",2],["strawberry",2]];
+      var W=300,rowH=27,H=items.length*rowH+20,L=88,R=30;
+      var bw=function(v){return lin(v,0,2.3,0,W-L-R);};
+      var s="";
+      items.forEach(function(it,i){
+        var y=8+i*rowH, w=bw(it[1]), r=3;
+        s+='<text class="lbl" x="'+(L-8)+'" y="'+(y+11)+'" text-anchor="end">'+it[0]+'</text>';
+        s+='<path class="bar" data-tip="'+it[0]+': '+it[1]+'" d="M'+L+' '+y+' h'+(w-r)+' a'+r+' '+r+' 0 0 1 '+r+' '+r+' v'+(15-2*r)+' a'+r+' '+r+' 0 0 1 -'+r+' '+r+' h-'+(w-r)+' z"/>';
+        s+='<text x="'+(L+w+6)+'" y="'+(y+11)+'">'+it[1]+'</text>';
+      });
+      s+='<line class="axis" x1="'+L+'" y1="4" x2="'+L+'" y2="'+(H-8)+'"/>';
+      return svgWrap(W,H,s,"Horizontal bar chart of cone counts per flavor");
+    },
+    hist: null, // interactive — see buildHist()
+    mincurve: function(){
+      var W=260,H=140,L=24,R=10,T=10,B=26;
+      var sx=function(v){return lin(v,-0.4,4.6,L,W-R);}, sy=function(v){return lin(v,0,7.4,H-B,T);};
+      var f=function(x){return (x-2)*(x-2)+1;};
+      var d="";
+      for (var i=0;i<=40;i++){ var x=-0.3+i*(4.5+0.3)/40; d+=(i?"L":"M")+sx(x).toFixed(1)+" "+sy(f(x)).toFixed(1)+" "; }
+      var s='<path class="ln" d="'+d+'"/>';
+      s+='<line class="dash" x1="'+sx(2)+'" y1="'+sy(1)+'" x2="'+sx(2)+'" y2="'+(H-B)+'"/>';
+      s+='<circle class="pt" cx="'+sx(2)+'" cy="'+sy(1)+'" r="4.5" data-tip="minimum: f(2) = 1"/>';
+      s+='<line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'"/>';
+      s+='<text class="anno" x="'+sx(2)+'" y="'+(H-B+14)+'" text-anchor="middle">x = 2</text>';
+      s+='<text class="anno" x="'+(L+4)+'" y="'+(T+6)+'">f(x)</text>';
+      return svgWrap(W,H,s,"A U-shaped curve with its lowest point marked at x equals 2");
+    }
+  };
+
+  // Interactive histogram: density vs raw-count scale, animated bars
+  function buildHist(){
+    var wrap = el("div");
+    var seg = el("div","seg"); seg.style.marginBottom = "8px";
+    var dBtn = el("button",null,"density — % per year"), cBtn = el("button",null,"raw counts");
+    dBtn.type = "button"; cBtn.type = "button";
+    seg.appendChild(dBtn); seg.appendChild(cBtn);
+    var chartBox = el("div");
+    var cap = el("div","mini-note");
+    wrap.appendChild(seg); wrap.appendChild(chartBox); wrap.appendChild(cap);
+
+    var edges=[0,20,40,55,80], pct=[20,40,30,10];
+    var W=320,H=185,L=34,R=12,T=26,B=30;
+    var sx=function(v){return lin(v,0,80,L,W-R);};
+
+    var s='<g class="hg"></g>';
+    for (var i=0;i<4;i++){
+      var x=sx(edges[i]), w=sx(edges[i+1])-sx(edges[i]);
+      s+='<rect class="bar hbar" data-i="'+i+'" x="'+x+'" width="'+w+'" style="y:'+(H-B)+'px;height:0px"/>';
+    }
+    s+='<g class="hlab"></g>';
+    s+='<line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'"/>';
+    edges.forEach(function(e2){ s+='<text x="'+sx(e2)+'" y="'+(H-B+13)+'" text-anchor="middle">'+e2+'</text>'; });
+    s+='<text x="'+(W-R)+'" y="'+(H-3)+'" text-anchor="end">Age (year)</text>';
+    chartBox.innerHTML = svgWrap(W,H,s,"Histogram of the ages of 100 people; toggle between density and raw-count scales");
+    var svg = chartBox.firstChild;
+    var bars = svg.querySelectorAll(".hbar");
+    var hg = svg.querySelector(".hg"), hlab = svg.querySelector(".hlab");
+
+    function render(mode){
+      dBtn.setAttribute("aria-pressed", mode === "d" ? "true" : "false");
+      cBtn.setAttribute("aria-pressed", mode === "c" ? "true" : "false");
+      var hts = mode === "d" ? [1,2,2,0.4] : [20,40,30,10];
+      var ymax = mode === "d" ? 2.35 : 47;
+      var ticks = mode === "d" ? [1,2] : [20,40];
+      var sy = function(v){ return lin(v,0,ymax,H-B,T); };
+      var g = "";
+      ticks.forEach(function(t2){ g+='<line class="grid" x1="'+L+'" y1="'+sy(t2)+'" x2="'+(W-R)+'" y2="'+sy(t2)+'"/><text x="'+(L-5)+'" y="'+(sy(t2)+3)+'" text-anchor="end">'+t2+'</text>'; });
+      g+='<text class="anno" x="'+L+'" y="'+(T-14)+'">'+(mode === "d" ? "Percent per year" : "Number of people")+'</text>';
+      hg.innerHTML = g;
+      var lab = "";
+      for (var i=0;i<4;i++){
+        var y=sy(hts[i]), hh=(H-B)-y, x=sx(edges[i]), w=sx(edges[i+1])-sx(edges[i]);
+        var wYr = edges[i+1]-edges[i];
+        bars[i].setAttribute("y", y); bars[i].setAttribute("height", hh);
+        bars[i].style.setProperty("y", y+"px");
+        bars[i].style.setProperty("height", hh+"px");
+        bars[i].setAttribute("data-tip", mode === "d"
+          ? edges[i]+"–"+edges[i+1]+" yr: "+hts[i]+" %/yr × "+wYr+" yr = "+pct[i]+"%"
+          : edges[i]+"–"+edges[i+1]+" yr: "+pct[i]+" people spread over "+wYr+" years");
+        var txt = mode === "d" ? pct[i]+"%" : pct[i];
+        if (hh > 26) lab+='<text class="onbar" x="'+(x+w/2)+'" y="'+(y+hh/2+3.5)+'" text-anchor="middle">'+txt+'</text>';
+        else lab+='<text class="anno" x="'+(x+w/2)+'" y="'+(y-5)+'" text-anchor="middle">'+txt+'</text>';
+      }
+      hlab.innerHTML = lab;
+      cap.innerHTML = mode === "d"
+        ? "the honest scale: equal heights = equal <em>density</em>. Areas give the shares — 20 · 40 · 30 · 10%."
+        : "the misleading scale: 20–40 now towers over 40–55, and 55–80 looks tiny — height-as-count ignores that the bins have different <b>widths</b>.";
+    }
+    dBtn.addEventListener("click", function(){ render("d"); });
+    cBtn.addEventListener("click", function(){ render("c"); });
+    render("d");
+    return wrap;
+  }
+
+  // ================= Build page =================
+  var ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>';
+  var ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+
+  var order = Object.keys(MODULES);
+  var sectionsEl = document.getElementById("sections");
+  var cards = [];
+  var demoCount = 0, trapCount = 0;
+
+  order.forEach(function (key) {
+    var mod = MODULES[key];
+    var items = FNS.filter(function (f) { return f.cat === key; });
+
+    var section = el("section","section");
+    section.dataset.cat = key;
+    section.style.setProperty("--accent", "var(--cat-" + key + ")");
+    section.style.setProperty("--mark", "var(--mk-" + key + ")");
+
+    var head = el("div","sec-head",
+      '<span class="dot"></span><h2>' + mod.name + '</h2><span class="count" data-count>' + items.length + '</span>');
+    section.appendChild(head);
+    section.appendChild(el("p","sec-blurb", mod.blurb));
+    if (key === "tables") section.appendChild(buildPlayground());
+    if (key === "misc") section.appendChild(buildPval());
+
+    var grid = el("div","grid");
+
+    items.forEach(function (f) {
+      var card = el("article","card" + (f.wide ? " wide" : ""));
+
+      var top = el("div","card-top",
+        '<code class="sig">' + f.sig + '</code>' +
+        '<button class="copy" type="button" aria-label="Copy signature" title="Copy">' + ICON_COPY + '</button>');
+      card.appendChild(top);
+      if (f.sub) card.appendChild(el("span","subtag", f.sub));
+      card.appendChild(el("p","desc", f.desc));
+      if (f.params && f.params.length) {
+        var ul = el("ul","params");
+        f.params.forEach(function (p) {
+          ul.appendChild(el("li",null,'<span class="pn">' + p[0] + '</span><span>' + p[1] + '</span>'));
+        });
+        card.appendChild(ul);
+      }
+
+      var demoText = "";
+      if (f.demos) {
+        var outer = el("div","demo-grid-outer");
+        var dg = el("div","demo-grid");
+        f.demos.forEach(function (d) { dg.appendChild(renderDemo(d)); demoCount++; demoText += " " + (d.call||"") + " " + (d.cap||""); });
+        outer.appendChild(dg);
+        card.appendChild(outer);
+      } else if (f.demo) {
+        card.appendChild(renderDemo(f.demo)); demoCount++;
+        demoText = f.demo.call || "";
+      }
+
+      if (f.trap) {
+        card.appendChild(el("div","trap", ICON_WARN + "<div><b>Exam trap · </b>" + f.trap + "</div>"));
+        trapCount++;
+      }
+
+      if (f.links) {
+        var lr = el("div","jumps");
+        f.links.forEach(function (lk) {
+          var a = el("a","book", esc(lk.l));
+          a.href = lk.h; a.target = "_blank"; a.rel = "noopener";
+          lr.appendChild(a);
+        });
+        card.appendChild(lr);
+      }
+
+      var foot = el("div","card-foot",'<span class="ret">returns&nbsp;<b>' + f.ret + '</b></span>');
+      card.appendChild(foot);
+
+      var copyText = plain(f.sig).replace(/\s·\s/g, "  ").trim();
+      card.querySelector(".copy").addEventListener("click", function(){ copy(copyText); });
+      card.querySelector(".sig").addEventListener("click", function(){ copy(copyText); });
+
+      grid.appendChild(card);
+      cards.push({ el: card, cat: key,
+        text: (plain(f.sig) + " " + plain(f.desc) + " " + (f.sub||"") + " " + demoText + " " + plain(f.trap||"")).toLowerCase() });
+    });
+
+    section.appendChild(grid);
+    sectionsEl.appendChild(section);
+  });
+
+  function countUp(id, target){
+    var elm = document.getElementById(id);
+    if (REDUCE) { elm.textContent = target; return; }
+    var t0 = null;
+    function step(ts){
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / 700);
+      elm.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  countUp("m-total", FNS.length);
+  countUp("m-demo", demoCount);
+  countUp("m-trap", trapCount);
+
+  // gentle scroll-in reveal for cards and list items
+  if (!REDUCE && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -30px 0px", threshold: 0.05 });
+    Array.prototype.forEach.call(document.querySelectorAll(".card, .radar-item"), function(c){
+      c.classList.add("rv"); io.observe(c);
+    });
+  }
+
+  // ================= Filter pills =================
+  var pillsEl = document.getElementById("pills");
+  var activeCat = "all";
+  function mkPill(key, label, color) {
+    var b = el("button","pill",'<span class="dot"></span>' + label);
+    b.type = "button"; b.dataset.cat = key;
+    b.setAttribute("aria-pressed", key === "all" ? "true" : "false");
+    b.style.setProperty("--pc", color);
+    b.addEventListener("click", function () {
+      activeCat = key;
+      Array.prototype.forEach.call(pillsEl.children, function (p) {
+        p.setAttribute("aria-pressed", p.dataset.cat === key ? "true" : "false");
+      });
+      applyFilter();
+    });
+    return b;
+  }
+  pillsEl.appendChild(mkPill("all", "All", "var(--ink-faint)"));
+  order.forEach(function (key) { pillsEl.appendChild(mkPill(key, MODULES[key].name, "var(--cat-" + key + ")")); });
+
+  // ================= Search =================
+  var input = document.getElementById("q");
+  var emptyEl = document.getElementById("empty");
+  var sections = Array.prototype.slice.call(sectionsEl.children);
+
+  function applyFilter() {
+    var q = input.value.trim().toLowerCase();
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = (activeCat === "all" || c.cat === activeCat) && (q === "" || c.text.indexOf(q) !== -1);
+      var wasHidden = c.el.classList.contains("hidden");
+      c.el.classList.toggle("hidden", !ok);
+      if (ok && wasHidden && !REDUCE) {
+        c.el.classList.remove("pop");
+        void c.el.offsetWidth;
+        c.el.classList.add("pop");
+      }
+      if (ok) shown++;
+    });
+    sections.forEach(function (sec) {
+      var visible = sec.querySelectorAll(".card:not(.hidden)").length;
+      sec.classList.toggle("hidden", visible === 0);
+      var cnt = sec.querySelector("[data-count]");
+      if (cnt) cnt.textContent = visible;
+    });
+    emptyEl.classList.toggle("show", shown === 0);
+    document.getElementById("empty-q").textContent = input.value.trim();
+  }
+  input.addEventListener("input", applyFilter);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); }
+    else if (e.key === "Escape" && document.activeElement === input) { input.value = ""; applyFilter(); input.blur(); }
+  });
+
+  // ================= Copy + toast =================
+  var toast = document.getElementById("toast");
+  var toastTimer = null;
+  function copy(text) {
+    function done() {
+      toast.innerHTML = 'Copied &nbsp;<code>' + esc(text) + '</code>';
+      toast.classList.add("show");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (err) {}
+      document.body.removeChild(ta); done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else { fallback(); }
+  }
+
+  // ================= Jump helper + radar chips =================
+  function jumpTo(q){
+    activeCat = "all";
+    Array.prototype.forEach.call(pillsEl.children, function (p) {
+      p.setAttribute("aria-pressed", p.dataset.cat === "all" ? "true" : "false");
+    });
+    input.value = q;
+    applyFilter();
+    var first = document.querySelector(".card:not(.hidden)");
+    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".jump"), function (b) {
+    b.addEventListener("click", function () { jumpTo(this.dataset.q); });
+  });
+
+  // ================= "Which one do I use?" flowcharts =================
+  function R(fn, code, why, q){ return { fn: fn, code: code, why: why, jump: q }; }
+  var TREES = {
+    charts: { name: "Charts", root: {
+      q: "How many variables are you plotting — and what kind?",
+      opts: [
+        { t: "One categorical — compare categories", res: R("group → barh", "tbl.group('Category').barh('Category')", "Bars compare a value (often counts) across categories. Order is flexible; bar areas mean nothing here.", "barh") },
+        { t: "One numerical — see its distribution", res: R("hist", "tbl.hist('Column', unit='…')", "Histogram on the density scale — area, not height, is the proportion.", "hist(") },
+        { t: "Two numerical", next: { q: "Is x ordered — like time?", opts: [
+            { t: "Yes — sequential x", res: R("plot", "tbl.plot('Year', 'Value')", "A line graph connects points in order: trends over an ordered axis.", "plot") },
+            { t: "No — just paired values", res: R("scatter", "tbl.scatter('x', 'y', fit_line=True)", "One point per row. Read direction, shape, strength — association, not causation.", "scatter") } ] } },
+        { t: "“Does X lead to Y?”", res: R("none of the above", "# no chart can answer a causal question", "“Leads to” is causation — observational charts only show association. This exact bait appears on exams.", "scatter") }
+      ] } },
+    tables: { name: "Table methods", root: {
+      q: "What do you want to do with the table?",
+      opts: [
+        { t: "Trim columns", next: { q: "Name the keepers, or the goners?", opts: [
+            { t: "Keep the ones I name", res: R("select", "tbl.select('A', 'B')", "A copy with only those columns.", "select") },
+            { t: "Remove the ones I name", res: R("drop", "tbl.drop('C')", "A copy without those columns.", "drop") } ] } },
+        { t: "Pick rows", next: { q: "How do you identify them?", opts: [
+            { t: "By a condition on the values", res: R("where + are.*", "tbl.where('Col', are.above(4))", "Predicates filter rows — watch inclusive vs exclusive bounds.", "where") },
+            { t: "By position — first k, top k", res: R("sort → take", "tbl.sort('Col', descending=True).take(np.arange(3))", "take picks by row index, so sort first to make position meaningful.", "take(") } ] } },
+        { t: "Summarize per category", next: { q: "How many category columns?", opts: [
+            { t: "One", res: R("group", "tbl.group('Cat')  ·  tbl.group('Cat', np.mean)", "One row per unique value; the collect function hits every other column.", "group(") },
+            { t: "Two — as a long list", res: R("group (two columns)", "tbl.group(make_array('A', 'B'))", "One row per combination that actually occurs.", "group(") },
+            { t: "Two — as a grid", res: R("pivot", "tbl.pivot('A', 'B', values, collect)", "First argument becomes the columns, second the rows.", "pivot(") } ] } },
+        { t: "Bring in columns from another table", res: R("join", "tblA.join('key', tblB, 'key')", "Inner join on matching values — unmatched rows vanish silently.", "join") },
+        { t: "Compute a new column", res: R("apply + with_columns", "tbl.with_columns('New', tbl.apply(f, 'Col'))", "apply returns an array; with_columns puts it back in the table.", "apply") },
+        { t: "Reorder rows", res: R("sort", "tbl.sort('Col', descending=True)", "Ascending by default; descending=True flips it.", "sort(") }
+      ] } },
+    inference: { name: "Inference", root: {
+      q: "What are you trying to conclude?",
+      opts: [
+        { t: "My sample vs a known model", next: { q: "One category's share, or the whole distribution?", opts: [
+            { t: "One category", res: R("sample_proportions + item", "sample_proportions(n, model).item(0)", "Simulate that category's proportion under the model; a directional statistic works.", "sample_proportions") },
+            { t: "The whole distribution", res: R("sample_proportions + TVD", "sum(np.abs(sim − model)) / 2", "Total variation distance — signed differences cancel to zero.", "sample_proportions") } ] } },
+        { t: "Are two groups different?", res: R("permutation (A/B) test", "shuffled = tbl.sample(with_replacement=False)", "Shuffle the labels WITHOUT replacement; compare the observed group difference to the shuffled null.", "sample(") },
+        { t: "Estimate a population parameter", res: R("bootstrap + percentile CI", "resample = tbl.sample()  →  percentile(2.5, stats)", "Resample WITH replacement; take the middle 95% of the bootstrap statistics.", "percentile") },
+        { t: "Predict one number from another", res: R("correlation + regression", "slope = r · SDy / SDx   ·   minimize(rmse)", "y = r·x in standard units; check that the residual plot is patternless.", "minimize") }
+      ] } }
+  };
+
+  (function buildChooser(){
+    var tabsEl = document.getElementById("ch-tabs");
+    var bodyEl = document.getElementById("ch-body");
+    var mapsEl = document.getElementById("ch-maps");
+    if (!tabsEl) return;
+    var keys = Object.keys(TREES);
+    var active = keys[0];
+    var node, crumbs;
+
+    function jumpBtn(res){
+      var j = el("button","jump", esc(res.fn));
+      j.type = "button";
+      j.addEventListener("click", function(){ jumpTo(res.jump); });
+      return j;
+    }
+    function restartBtn(){
+      var re = el("button","ch-restart","↺ start over");
+      re.type = "button";
+      re.addEventListener("click", function(){ reset(true); });
+      return re;
+    }
+    function draw(fade){
+      bodyEl.innerHTML = "";
+      var box = el("div");
+      box.style.display = "flex"; box.style.flexDirection = "column"; box.style.gap = "12px";
+      if (fade && !REDUCE) box.classList.add("stage-fade");
+      if (crumbs.length) {
+        var cr = el("div","crumbs");
+        cr.appendChild(el("span","crumb", esc(TREES[active].name)));
+        crumbs.forEach(function(c){ cr.appendChild(el("span","crumb", esc(c))); });
+        box.appendChild(cr);
+      }
+      if (node.res) {
+        var r = node.res;
+        var card = el("div","ch-result");
+        card.appendChild(el("div","fn-name", esc(r.fn)));
+        card.appendChild(el("code","demo-call",'<span class="c">&gt;&gt;&gt;</span> ' + esc(r.code)));
+        card.appendChild(el("p","panel-sub", r.why));
+        var row = el("div","jumps");
+        row.appendChild(jumpBtn(r));
+        card.appendChild(row);
+        box.appendChild(card);
+        box.appendChild(restartBtn());
+      } else {
+        box.appendChild(el("p","ch-q", esc(node.q)));
+        var opts = el("div","ch-opts");
+        node.opts.forEach(function(o){
+          var b = el("button","ch-opt", esc(o.t));
+          b.type = "button";
+          b.addEventListener("click", function(){
+            crumbs.push(o.t);
+            node = o.res ? { res: o.res } : o.next;
+            draw(true);
+          });
+          opts.appendChild(b);
+        });
+        box.appendChild(opts);
+        if (crumbs.length) box.appendChild(restartBtn());
+      }
+      bodyEl.appendChild(box);
+    }
+    function reset(fade){ node = TREES[active].root; crumbs = []; draw(fade); }
+
+    keys.forEach(function(k, i){
+      var b = el("button", null, TREES[k].name);
+      b.type = "button";
+      b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+      b.addEventListener("click", function(){
+        active = k;
+        Array.prototype.forEach.call(tabsEl.children, function(p){ p.setAttribute("aria-pressed", p === b ? "true" : "false"); });
+        reset(true);
+        drawMaps();
+      });
+      tabsEl.appendChild(b);
+    });
+
+    function mapTree(n){
+      var ul = el("ul");
+      n.opts.forEach(function(o){
+        var li = el("li");
+        li.appendChild(el("span","t-opt","▸ " + esc(o.t) + " "));
+        if (o.res) li.appendChild(jumpBtn(o.res));
+        else { li.appendChild(el("div","t-q", esc(o.next.q))); li.appendChild(mapTree(o.next)); }
+        ul.appendChild(li);
+      });
+      return ul;
+    }
+    function drawMaps(){
+      mapsEl.innerHTML = "";
+      var t = el("div","tree");
+      t.appendChild(el("p","t-root", esc(TREES[active].root.q)));
+      t.appendChild(mapTree(TREES[active].root));
+      mapsEl.appendChild(t);
+    }
+    reset(false);
+    drawMaps();
+  })();
+
+  // ================= Playground: chain methods on cones =================
+  function buildPlayground(){
+    var panel = el("div","panel");
+    var head = el("div","panel-head");
+    head.appendChild(el("span","subtag","Playground"));
+    head.appendChild(el("span","panel-title","Chain methods on cones — live"));
+    panel.appendChild(head);
+    panel.appendChild(el("p","panel-sub","Click a method to apply it to the current table; the pipeline builds up like real code. Chips gray out when they don't apply to the current columns — notice what each result <em>is</em> (table? how many columns?)."));
+    var code = el("code","demo-call");
+    var chips = el("div","op-chips");
+    var body = el("div","stage-body");
+    var bar = el("div","pg-bar");
+    var count = el("span","pg-count");
+    var util = el("div","pg-util");
+    var undoB = el("button",null,"↩ undo"), resetB = el("button",null,"↺ reset");
+    undoB.type = "button"; resetB.type = "button";
+    util.appendChild(undoB); util.appendChild(resetB);
+    bar.appendChild(count); bar.appendChild(util);
+    panel.appendChild(code); panel.appendChild(chips); panel.appendChild(body); panel.appendChild(bar);
+
+    function ci(s, n){ return s.cols.indexOf(n); }
+    function fmt(x){ return String(Math.round(x * 100) / 100); }
+    function sortBy(s, col, desc){
+      var j = ci(s, col);
+      var rows = s.rows.slice().sort(function(a,b){ return (parseFloat(a[j]) - parseFloat(b[j])) * (desc ? -1 : 1); });
+      return { cols: s.cols, rows: rows };
+    }
+    var OPS = [
+      { c: ".where('Flavor', are.equal_to('chocolate'))",
+        ok: function(s){ return ci(s,"Flavor") > -1; },
+        f: function(s){ var j = ci(s,"Flavor"); return { cols: s.cols, rows: s.rows.filter(function(r){ return r[j] === "chocolate"; }) }; } },
+      { c: ".where('Price', are.above(4))",
+        ok: function(s){ return ci(s,"Price") > -1; },
+        f: function(s){ var j = ci(s,"Price"); return { cols: s.cols, rows: s.rows.filter(function(r){ return parseFloat(r[j]) > 4; }) }; } },
+      { c: ".drop('Color')",
+        ok: function(s){ return ci(s,"Color") > -1; },
+        f: function(s){ var j = ci(s,"Color");
+          return { cols: s.cols.filter(function(_,k){ return k !== j; }),
+                   rows: s.rows.map(function(r){ return r.filter(function(_,k){ return k !== j; }); }) }; } },
+      { c: ".sort('Price')",
+        ok: function(s){ return ci(s,"Price") > -1; },
+        f: function(s){ return sortBy(s, "Price", false); } },
+      { c: ".sort('Price', descending=True)",
+        ok: function(s){ return ci(s,"Price") > -1; },
+        f: function(s){ return sortBy(s, "Price", true); } },
+      { c: ".take(np.arange(2))",
+        ok: function(s){ return s.rows.length > 2; },
+        f: function(s){ return { cols: s.cols, rows: s.rows.slice(0, 2) }; } },
+      { c: ".group('Flavor')",
+        ok: function(s){ return ci(s,"Flavor") > -1 && ci(s,"count") === -1; },
+        f: function(s){ var j = ci(s,"Flavor"); var m = {};
+          s.rows.forEach(function(r){ m[r[j]] = (m[r[j]] || 0) + 1; });
+          return { cols: ["Flavor","count"], rows: Object.keys(m).sort().map(function(k){ return [k, String(m[k])]; }) }; } },
+      { c: ".group('Flavor', np.mean)",
+        ok: function(s){ return ci(s,"Flavor") > -1 && s.cols.length > 1 && ci(s,"count") === -1 &&
+          !s.cols.some(function(c){ return c.indexOf(" mean") > -1; }); },
+        f: function(s){ var j = ci(s,"Flavor"); var groups = {};
+          s.rows.forEach(function(r){ (groups[r[j]] = groups[r[j]] || []).push(r); });
+          var others = s.cols.map(function(c,k){ return { c: c, k: k }; }).filter(function(o){ return o.k !== j; });
+          var cols = ["Flavor"].concat(others.map(function(o){ return o.c + " mean"; }));
+          var rows = Object.keys(groups).sort().map(function(g){
+            return [g].concat(others.map(function(o){
+              var vals = groups[g].map(function(r){ return parseFloat(r[o.k]); });
+              if (vals.some(function(v){ return isNaN(v); })) return "";
+              return fmt(vals.reduce(function(a,b){ return a + b; }, 0) / vals.length);
+            }));
+          });
+          return { cols: cols, rows: rows }; } }
+    ];
+
+    var base = { cols: C_COLS.slice(), rows: C_ROWS.map(function(r){ return r.slice(); }) };
+    var stack, steps;
+    var btns = OPS.map(function(op){
+      var b = el("button","op-chip", esc(op.c));
+      b.type = "button";
+      b.addEventListener("click", function(){
+        if (b.disabled) return;
+        stack.push(op.f(stack[stack.length - 1]));
+        steps.push(op.c);
+        render(true);
+      });
+      chips.appendChild(b);
+      return b;
+    });
+    undoB.addEventListener("click", function(){ if (steps.length) { stack.pop(); steps.pop(); render(true); } });
+    resetB.addEventListener("click", function(){ init(); });
+
+    function render(fade){
+      var s = stack[stack.length - 1];
+      code.innerHTML = '<span class="c">&gt;&gt;&gt;</span> cones' + esc(steps.join(""));
+      OPS.forEach(function(op, i){ btns[i].disabled = steps.length >= 6 || !op.ok(s); });
+      undoB.disabled = steps.length === 0;
+      body.innerHTML = "";
+      var g = renderSpec({ t: "table", cols: s.cols, rows: s.rows });
+      if (fade && !REDUCE) g.classList.add("stage-fade");
+      body.appendChild(g);
+      count.textContent = s.rows.length + " row" + (s.rows.length === 1 ? "" : "s") + " × " +
+        s.cols.length + " column" + (s.cols.length === 1 ? "" : "s");
+    }
+    function init(){ stack = [base]; steps = []; render(true); }
+    init();
+    return panel;
+  }
+
+  // ================= p-value lab =================
+  function buildPval(){
+    var panel = el("div","panel");
+    var head = el("div","panel-head");
+    head.appendChild(el("span","subtag","Lab"));
+    head.appendChild(el("span","panel-title","The p-value, live"));
+    panel.appendChild(head);
+    panel.appendChild(el("p","panel-sub","Null hypothesis: <b>the coin is fair</b>. Statistic: heads in 100 flips. The bars are 10,000 simulations under the null — move the observed statistic and the shaded tail <em>is</em> the p-value. Flip the tail to match a “fewer heads” alternative."));
+
+    // Binomial(100, 0.5), scaled to counts out of 10,000 — a deterministic stand-in for simulation
+    var pmf = [], p = Math.pow(0.5, 100);
+    pmf[0] = p;
+    for (var k = 0; k < 100; k++) { p = p * (100 - k) / (k + 1); pmf[k + 1] = p; }
+    var counts = pmf.map(function(v){ return Math.round(v * 10000); });
+    var TOT = counts.reduce(function(a, b){ return a + b; }, 0);
+
+    var K0 = 35, K1 = 65;
+    var W = 480, H = 190, L = 36, R = 10, T = 20, B = 30;
+    var nb = K1 - K0 + 1;
+    var bw = (W - L - R) / nb;
+    var sy = function(v){ return lin(v, 0, counts[50] * 1.12, H - B, T); };
+
+    var s = "";
+    [250, 500, 750].forEach(function(g){ s += '<line class="grid" x1="'+L+'" y1="'+sy(g)+'" x2="'+(W-R)+'" y2="'+sy(g)+'"/><text x="'+(L-5)+'" y="'+(sy(g)+3)+'" text-anchor="end">'+g+'</text>'; });
+    for (var k2 = K0; k2 <= K1; k2++){
+      var x = L + (k2 - K0) * bw, y = sy(counts[k2]);
+      s += '<rect class="nbar" data-k="'+k2+'" x="'+(x+0.5).toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+(bw-1).toFixed(1)+'" height="'+((H-B)-y).toFixed(1)+'" data-tip="'+k2+' heads: '+counts[k2]+' of 10,000 sims"/>';
+    }
+    s += '<line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'"/>';
+    [35,40,45,50,55,60,65].forEach(function(t2){ s += '<text x="'+(L+(t2-K0)*bw+bw/2)+'" y="'+(H-B+13)+'" text-anchor="middle">'+t2+'</text>'; });
+    s += '<line class="dash" id="pv-line" x1="0" y1="'+T+'" x2="0" y2="'+(H-B)+'"/>';
+    s += '<text class="anno" id="pv-obs" x="0" y="'+(T-7)+'" text-anchor="middle">observed</text>';
+    s += '<text x="'+(W-R)+'" y="'+(H-3)+'" text-anchor="end">Heads in 100 flips</text>';
+    var chartBox = el("div");
+    chartBox.innerHTML = svgWrap(W, H, s, "Null distribution of heads in 100 fair-coin flips, with a movable observed value and shaded tail");
+    chartBox.firstChild.style.maxWidth = "560px";
+    var svg = chartBox.firstChild;
+
+    var seg = el("div","seg");
+    var rBtn = el("button",null,"right tail — P(≥ obs)"), lBtn = el("button",null,"left tail — P(≤ obs)");
+    rBtn.type = "button"; lBtn.type = "button";
+    seg.appendChild(rBtn); seg.appendChild(lBtn);
+    var slider = el("input","pv-slider");
+    slider.type = "range"; slider.min = K0; slider.max = K1; slider.step = 1; slider.value = 59;
+    slider.setAttribute("aria-label","Observed number of heads");
+    slider.style.maxWidth = "560px";
+    var read = el("div","pv-read");
+    var verdict = el("span","verdict");
+    var row = el("div","pv-row");
+    row.appendChild(seg); row.appendChild(read); row.appendChild(verdict);
+    panel.appendChild(chartBox); panel.appendChild(slider); panel.appendChild(row);
+
+    var tail = "r";
+    function update(){
+      var obs = +slider.value;
+      function inTail(k){ return tail === "r" ? k >= obs : k <= obs; }
+      var tsum = 0;
+      for (var k = 0; k <= 100; k++) if (inTail(k)) tsum += counts[k];
+      Array.prototype.forEach.call(svg.querySelectorAll(".nbar"), function(b){
+        b.classList.toggle("on", inTail(+b.dataset.k));
+      });
+      var x = L + (obs - K0) * bw + (tail === "r" ? 0 : bw);
+      svg.querySelector("#pv-line").setAttribute("x1", x);
+      svg.querySelector("#pv-line").setAttribute("x2", x);
+      svg.querySelector("#pv-obs").setAttribute("x", x);
+      var pv = tsum / TOT;
+      read.innerHTML = "observed = <b>" + obs + "</b> · p = <b>" + tsum.toLocaleString() + " / " + TOT.toLocaleString() + " ≈ " + pv.toFixed(4) + "</b>";
+      verdict.textContent = pv < 0.05 ? "p < 0.05 → reject the null" : "p ≥ 0.05 → consistent with the null";
+      verdict.className = "verdict " + (pv < 0.05 ? "rej" : "fail");
+      rBtn.setAttribute("aria-pressed", tail === "r" ? "true" : "false");
+      lBtn.setAttribute("aria-pressed", tail === "l" ? "true" : "false");
+    }
+    slider.addEventListener("input", update);
+    rBtn.addEventListener("click", function(){ tail = "r"; update(); });
+    lBtn.addEventListener("click", function(){ tail = "l"; update(); });
+    svg.addEventListener("click", function(e){
+      var t2 = e.target.closest ? e.target.closest(".nbar") : null;
+      if (t2) { slider.value = t2.dataset.k; update(); }
+    });
+    update();
+    return panel;
+  }
+
+  // ================= Trick check quiz =================
+  // {type:"tf", cat, q, a:true|false, why, src}
+  // {type:"mc", cat, q, code?, opts:[...], a:index, why, src}
+  var QUIZ = [
+    // ---- True/False gotchas ----
+    {type:"tf", cat:"histograms", q:"The height of a bar in a histogram equals the proportion of data in that bin.", a:false,
+     why:"The y-axis is density (percent per unit) — it's the bar's <b>area</b> (height × width) that equals the proportion.", src:"sp23 Final Q1a"},
+    {type:"tf", cat:"testing", q:"To shuffle labels for an A/B (permutation) test, you sample the table <em>with</em> replacement.", a:false,
+     why:"Shuffling is a reordering — sampling <b>without</b> replacement. Sampling <em>with</em> replacement is the bootstrap.", src:"sp23 Final Q1g"},
+    {type:"tf", cat:"classification", q:"A classifier is overfitting if it performs very well on the test set.", a:false,
+     why:"Overfitting = great on the <b>training</b> set, poor on the test set. Strong test performance is the opposite.", src:"sp23 Final Q1c"},
+    {type:"tf", cat:"testing", q:"By the Central Limit Theorem, the distribution of the sample average is normal regardless of the sample size.", a:false,
+     why:"The CLT needs a <b>large</b> sample — “regardless of sample size” is the planted flaw.", src:"sp23 Final Q1h"},
+    {type:"tf", cat:"classification", q:"To evaluate a prediction model, check how accurate it is on the very data points used to build it.", a:false,
+     why:"Judge models on <b>held-out</b> data — training-data accuracy flatters the model (1-NN scores 100% on its own training set).", src:"fa24 Final Q1d"},
+    {type:"tf", cat:"testing", q:"Suppose the null is actually true. If 100 researchers each run the test with a 5% cutoff, about 95 of them will fail to reject the null.", a:true,
+     why:"A 5% cutoff wrongly rejects a true null ~5% of the time — so ~95% correctly fail to reject.", src:"sp23 Final Q1k"},
+    {type:"tf", cat:"testing", q:"For <em>any</em> distribution, less than 30% of the data lies more than two SDs from the mean (both tails combined).", a:true,
+     why:"Chebyshev: at most 1/2² = 25% lies beyond two SDs — for any distribution whatsoever — and 25% &lt; 30%.", src:"sp23 Final Q1e"},
+    {type:"tf", cat:"testing", q:"The median of a set of 15 integers is always an integer.", a:true,
+     why:"15 is odd, so the median <em>is</em> the middle value. The bait is the even case, where the median averages two values.", src:"sp23 Final Q1j"},
+    {type:"tf", cat:"testing", q:"If you're a subject in an experiment, knowing whether you got the treatment can act as a confounding variable.", a:true,
+     why:"Knowing your assignment changes behavior and expectations (placebo effect) — that's exactly why studies are blinded.", src:"sp23 Final Q1d"},
+    {type:"tf", cat:"classification", q:"A pixel of an image is typically treated as a categorical variable when building a classifier.", a:false,
+     why:"Pixel intensities are numbers — numerical features, not categories.", src:"sp23 Final Q1b"},
+    {type:"tf", cat:"regression", q:"For any regression line, the SD of the residuals equals the RMSE.", a:true,
+     why:"Residuals average to zero, so their SD is exactly their root mean square — the RMSE.", src:"sp23 Final Q1f"},
+    {type:"tf", cat:"regression", q:"In a linear regression, the <em>median</em> of the residuals is always zero.", a:false,
+     why:"The <b>mean</b> of residuals is always zero; skewed residuals pull the median off zero.", src:"sp23 Final Q1m"},
+    {type:"tf", cat:"regression", q:"Standardize the data first, then fit lines with and without outliers: the with-outliers line has the larger-magnitude slope.", a:true,
+     why:"On standardized data the slope <em>is</em> r, and outliers inflate |r| — removing them shrinks the slope.", src:"sp23 Final Q1l"},
+    {type:"tf", cat:"regression", q:"minimize(error) on a two-argument function error(a, b) could validly return the array [4, 20].", a:true,
+     why:"<code>minimize</code> returns the <b>array of argument values</b> that minimize the function — one entry per parameter.", src:"sp23 Final Q1n"},
+    {type:"tf", cat:"regression", q:"If the correlation between two variables is 0.6, their correlation after converting both to standard units is also 0.6.", a:true,
+     why:"r is unitless — standardizing (or any linear rescaling) leaves it unchanged.", src:"su23 Final Q3b"},
+    {type:"tf", cat:"regression", q:"If r = 0.6, the correlation between one variable in standard units and the other left in original units is still 0.6.", a:true,
+     why:"Same fact, sneakier phrasing: rescaling <em>either</em> variable linearly leaves r alone.", src:"su23 Final Q3b"},
+    {type:"tf", cat:"regression", q:"You can use numerical optimization (minimize on RMSE) to recover nearly the same slope and intercept as the regression formulas.", a:true,
+     why:"The regression line is <em>defined</em> as the RMSE-minimizing line — the two routes agree.", src:"fa24 Final Q3c"},
+    {type:"tf", cat:"regression", q:"A slope function that standardizes its inputs still returns the correct value if you accidentally pass it columns that are <em>already</em> in standard units.", a:true,
+     why:"Standardizing standardized data changes nothing — the slope in standard units is r either way.", src:"fa24 Final Q4b"},
+
+    // ---- Wording / interpretation traps ----
+    {type:"tf", cat:"testing", q:"A p-value of 0.003 means there is a 0.3% chance that the null hypothesis is true.", a:false,
+     why:"A p-value is the chance of data this extreme <b>assuming the null</b> — never the probability that the null is true.", src:"sp23 Midterm Q5e"},
+    {type:"tf", cat:"testing", q:"With a 1% cutoff: if the null were true, there's a 1% chance the test would incorrectly reject it.", a:true,
+     why:"That's exactly what the cutoff is — the false-positive (Type I error) rate.", src:"sp23 Midterm Q5e"},
+    {type:"tf", cat:"testing", q:"A p-value of 0.37 means 37% of the simulated statistics were as extreme or <em>less</em> extreme than the observed one.", a:false,
+     why:"Flipped tail: the p-value counts simulations as or <b>more</b> extreme than observed.", src:"su23 Final Q1f"},
+    {type:"tf", cat:"testing", q:"A p-value above the cutoff (“data consistent with the null”) means the null hypothesis is true.", a:false,
+     why:"Failing to reject ≠ proving — the data merely don't contradict the null.", src:"su23 Final Q1f"},
+    {type:"tf", cat:"testing", q:"Repeating an A/B experiment with a much larger sample makes the null distribution of the test statistic narrower (smaller SD).", a:true,
+     why:"Bigger <b>sample</b> → tighter null distribution (∝ 1/√n). Careful: more <em>simulations</em> of the same sample does NOT shrink it.", src:"su23 Final Q1g"},
+    {type:"tf", cat:"testing", q:"A scatter plot of wind speed vs rentals can answer: “does higher wind speed <em>lead to</em> more rentals?”", a:false,
+     why:"“Leads to” is causal — observational plots show association only. The exam's correct choice was “none of the above.”", src:"su23 Midterm Q4a"},
+    {type:"tf", cat:"testing", q:"An A/B test rejects “same distribution.” You can now conclude that being in group B <em>causes</em> the difference.", a:false,
+     why:"Causal conclusions need a randomized controlled design — a significant difference alone is just association.", src:"fa24 Final Q1f"},
+    {type:"tf", cat:"bootstrap", q:"From one 95% confidence interval: there's a 95% chance the true parameter lies inside <em>this</em> interval.", a:false,
+     why:"The parameter is fixed — it's in or it's not. 95% is the long-run success rate of the <b>procedure</b>.", src:"su23 Final Q2g"},
+    {type:"tf", cat:"bootstrap", q:"If you build 95% confidence intervals from many random samples, about 95% of the intervals will contain the true parameter.", a:true,
+     why:"That's the correct frequentist reading — coverage belongs to the method, not one interval.", src:"su23 Final Q2g"},
+    {type:"tf", cat:"regression", q:"A 95% CI for a regression slope is [−0.05, −0.015], excluding 0 — so the null hypothesis (slope = 0) is false.", a:false,
+     why:"Excluding 0 lets you <b>reject at 5%</b> — but a test never proves a hypothesis false.", src:"fa24 Final Q4e"},
+    {type:"tf", cat:"regression", q:"A downward-trending scatter of age vs characters-named shows that being older <em>causes</em> people to name fewer characters.", a:false,
+     why:"A trend in a scatter is a negative <b>association</b> — causation doesn't follow.", src:"fa24 Final Q6d"},
+    {type:"tf", cat:"regression", q:"r = 0.6 between quality and score means the scores deviate <em>less</em> from their average than quality does.", a:false,
+     why:"r measures the strength of the linear association — it says nothing about which variable is more spread out.", src:"su23 Final Q3a"},
+
+    // ---- Code evaluation ----
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"sum(make_array(1, 2, 12) >= 2)",
+     opts:["2","14","True","Error"], a:0,
+     why:"The comparison gives the boolean array <code>[False, True, True]</code>, and summing booleans <b>counts the Trues</b>. (14 is the bait — summing the values ≥ 2.)", src:"sp23 Midterm Q4a"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"make_array(2, 3, 4) - make_array(1, 2, 3)",
+     opts:["array([1, 1, 1])","array([1, 2, 3, 4])","3","Error"], a:0,
+     why:"Same-length arrays combine <b>element-wise</b>: [2−1, 3−2, 4−3].", src:"sp23 Midterm Q4a"},
+    {type:"mc", cat:"python", q:"What does this print?", code:"x = 1\nfor i in make_array(3, 2, -1):\n    x = x * i\nprint(x)",
+     opts:["-6","6","-1","0"], a:0,
+     why:"A running product: 1 × 3 × 2 × (−1) = −6 — the loop iterates over the array's <em>values</em>, including the negative one.", src:"sp23 Midterm Q4a"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"'data' + str(round(8.2))",
+     opts:["'data8'","'data8.2'","'data8.0'","Error"], a:0,
+     why:"<code>round(8.2)</code> → 8 (an int), <code>str(8)</code> → '8', and + concatenates.", src:"sp23 Midterm Q4a"},
+    {type:"mc", cat:"python", q:"What does this print?", code:"x = 0\nif x == 0:\n    x = 1\nif x == 1:\n    x = 2\nelif x < 3:\n    x = 3\nelse:\n    x = 0\nprint('x is', x)",
+     opts:["x is 2","x is 1","x is 3","x is 0"], a:0,
+     why:"Two <em>separate</em> ifs: the first sets x=1, then the second (a fresh if) sees x==1 and sets x=2. With <code>elif</code> instead, it would have stopped at x=1.", src:"sp23 Midterm Q4c"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"arr1 = make_array(1, 2, 3)\narr2 = make_array(4, 5, 6)\nlen(np.append(arr1, arr2)) != len(arr1 + arr2)",
+     opts:["True","False","Error"], a:0,
+     why:"<code>np.append</code> concatenates (length 6); <code>arr1 + arr2</code> adds element-wise (length 3). 6 ≠ 3 → True.", src:"su23 Midterm Q1a"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"sum((np.arange(131, 138) - 135) >= 0)",
+     opts:["3","4","2","Error"], a:0,
+     why:"<code>np.arange(131, 138)</code> stops at 137. Values ≥ 135: 135, 136, 137 → three Trues. (4 is the bait if you include 138.)", src:"su23 Midterm Q1b"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"'o' + 'skit'.replace('t', '') + str(int(1941.561))",
+     opts:["'oski1941'","'oski1942'","'oskit1941'","Error"], a:0,
+     why:"<code>replace</code> deletes the 't' → 'ski', and <code>int(1941.561)</code> <b>truncates</b> to 1941 — it does not round.", src:"su23 Midterm Q1c"},
+    {type:"mc", cat:"python", q:"What does this evaluate to?", code:"make_array(8, 3, 4, 5) + np.arange(2, 11, 3)",
+     opts:["Error","array([10, 8, 12, 13])","array([10, 8, 12])","array([10, 6, 8])"], a:0,
+     why:"<code>np.arange(2, 11, 3)</code> is [2, 5, 8] — length 3 vs length 4. Mismatched lengths don't add: <b>Error</b>.", src:"su23 Midterm Q1d"},
+
+    // ---- Tempting distractors ----
+    {type:"mc", cat:"tables", q:"Each restaurant appears with several transportation modes and times. Which gives the <em>fastest mode per restaurant</em>?",
+     opts:['transport.select("Restaurant", "Transportation").group("Restaurant", min)','transport.sort("Time").select("Restaurant", "Transportation").group("Restaurant", first)'], a:1,
+     why:"<code>group(…, min)</code> takes the min of each column <b>separately</b> — you'd get the alphabetically-first mode, not the fastest. Sort by Time, then take <code>first</code>.", src:"sp23 Midterm Q2a"},
+    {type:"mc", cat:"tables", q:"After <code>songs.sort('difficulty').take(np.arange(5))</code>, how do you get the five titles as an <em>array</em>?",
+     opts:['.select("song")','.take("song")','.column("song")','.item("song")'], a:2,
+     why:"<code>column</code> → array. <code>select</code> → table, <code>take</code> → rows by index, <code>item</code> → one element of an array (by position, not label).", src:"su23 Midterm Q2b"},
+    {type:"mc", cat:"tables", q:"A later <code>pivot(…, get_first)</code> should yield each difficulty's <em>shortest</em> song. Which step must come first?",
+     opts:['sort("length")','select("length")','where("length", min)','group("length")'], a:0,
+     why:"<code>get_first</code> grabs whatever row comes first — so the table must already be <b>sorted by length</b> for “first” to mean “shortest.”", src:"su23 Midterm Q2e"},
+    {type:"mc", cat:"tables", q:"Keep only rows whose <code>artist</code> is one of the names saved in the array <code>faves</code>.",
+     opts:['where("artist", are.containing(faves))','where("artist", are.contained_in(faves))'], a:1,
+     why:"<code>contained_in</code> = the value is <b>in</b> the collection; <code>containing</code> = the value contains a <b>substring</b>. Mirror images.", src:"su23 Midterm Q2d"},
+    {type:"mc", cat:"testing", q:"Statistic = mean(rock) − mean(pop); the alternative says rock is <em>lower</em>. The p-value is…",
+     opts:["np.count_nonzero(sim_stats >= obs_stat) / len(sim_stats)","np.count_nonzero(sim_stats <= obs_stat) / len(sim_stats)"], a:1,
+     why:"“Rock lower” pushes the statistic <b>negative</b>, so extreme-toward-the-alternative is the <b>left</b> tail: count sims ≤ observed.", src:"sp23 Midterm Q5d"},
+    {type:"mc", cat:"testing", q:"Best null hypothesis for “are rock songs less danceable than pop songs?”",
+     opts:["In the sample, rock and pop have the same danceability distribution.","In the population of all rock and pop songs, the danceability distribution is the same."], a:1,
+     why:"Hypotheses are claims about the <b>population</b> — the sample-worded version is the standard bait.", src:"sp23 Midterm Q5b"},
+    {type:"mc", cat:"testing", q:"<code>means = reviews.group(0, np.mean).column(1)</code>. The alternative: “Oppenheimer rated higher than Barbie.” To make big values favor it, return…",
+     opts:["means.item(0) - means.item(1)","means.item(1) - means.item(0)"], a:1,
+     why:"<code>group</code> sorts categories <b>alphabetically</b> — Barbie is index 0, Oppenheimer index 1 — so Oppenheimer − Barbie is item(1) − item(0).", src:"su23 Final Q1c"},
+    {type:"mc", cat:"testing", q:"Goodness-of-fit: is the DS-majors distribution different from all students? Best test statistic:",
+     opts:["np.sum(all_students - ds_majors)","np.sum(np.abs(all_students - ds_majors))","np.mean(all_students - ds_majors)"], a:1,
+     why:"Signed differences <b>cancel to ~0</b> for any pair of distributions — you need absolute differences (TVD, up to the ÷2).", src:"sp23 Midterm Q6a"},
+    {type:"mc", cat:"bootstrap", q:"Minimum sample size for a 95% CI for the population <em>median</em> spend, given only the population SD?",
+     opts:["1600","400","2500","Not enough information"], a:3,
+     why:"The width ≈ 4·SD/√n machinery rests on the CLT, which covers <b>means and sums</b> — not medians. The computable-looking numbers are the bait.", src:"sp23 Final Q2a"},
+    {type:"mc", cat:"regression", q:"A regression predicts price from weight; mean weight is 5 lb. Which 90% prediction interval is <em>wider</em>?",
+     opts:["for a 2 lb book","for a 6 lb book"], a:0,
+     why:"Predictions get less certain the farther x is from the mean of x — 2 is 3 away from 5; 6 is only 1 away.", src:"fa24 Final Q1i"},
+    {type:"mc", cat:"classification", q:"Two decision boundaries fit to the same data — one jagged, one smoother. Which is the <b>3-NN</b> classifier?",
+     opts:["the jagged one","the smoother one"], a:1,
+     why:"Bigger k averages more neighbors → smoother boundary. k = 1 hugs individual points (overfit, jagged).", src:"su23 Final Q4c"},
+    {type:"mc", cat:"python", q:"Which correctly counts how many times <code>value</code> appears in the array <code>arr</code>?",
+     opts:["a loop: if x == value: count = count + 1","return arr == value","return np.sum(arr = value)","a loop over np.arange(value)"], a:0,
+     why:"(b) returns a boolean <b>array</b>, not a count; (c) uses <code>=</code> (assignment) where <code>==</code> belongs — an error; (d) loops over the wrong range entirely.", src:"sp23 Midterm Q4b"},
+
+    // ---- Probability gotchas ----
+    {type:"mc", cat:"probability", q:"Three protein servings are chosen at random <em>with replacement</em>: salmon 0.35, chicken 0.10, edamame 0.20, … P(exactly this order: salmon, then chicken, then edamame)?",
+     opts:["0.35 + 0.1 + 0.2","0.35 × 0.1 × 0.2","(1−0.35) × (1−0.1) × (1−0.2)"], a:1,
+     why:"Independent picks in a fixed order <b>multiply</b> — adding is the reflex bait.", src:"su23 Midterm Q5a"},
+    {type:"mc", cat:"probability", q:"Same bowl, tofu = 0.15, three independent servings. P(<em>no tofu at all</em>)?",
+     opts:["0.15³","(1 − 0.15)³","1 − 0.15³","3 × (1 − 0.15)"], a:1,
+     why:"“No tofu” means <em>not-tofu</em> (0.85) on <b>all three</b> picks → 0.85³.", src:"su23 Midterm Q5b"},
+    {type:"mc", cat:"probability", q:"P(<em>at least one</em> shrimp in the three servings)? (shrimp = 0.15)",
+     opts:["3 × 0.15","3 × 0.15 × 0.85²","1 − (1 − 0.15)³","(1 − 0.15)³"], a:2,
+     why:"“At least one” = 1 − P(none) = 1 − 0.85³, every time. <code>3 × 0.15</code> double-counts overlaps; <code>3 × 0.15 × 0.85²</code> is <em>exactly</em> one. <a href=\"https://inferentialthinking.com/chapters/09/5/finding-probabilities\" target=\"_blank\" rel=\"noopener\">book §9.5</a>", src:"su23 Midterm Q5e"},
+    {type:"mc", cat:"probability", q:"P(exactly two spicy tuna (0.05) and one chicken (0.10) across the three servings)?",
+     opts:["0.05² × 0.1","3 × 0.05² × 0.1","0.05² + 0.1"], a:1,
+     why:"The chicken can be serving 1, 2, or 3 — three arrangements, so × 3. Dropping the coefficient is the classic slip.", src:"su23 Midterm Q5d"},
+    {type:"mc", cat:"probability", q:"P(all three salmon (0.35) <em>or</em> all three edamame (0.20))?",
+     opts:["0.35³ + 0.2³","0.35³ × 0.2³","(1−0.35)³ + (1−0.2)³"], a:0,
+     why:"The two events are mutually exclusive, so their probabilities <b>add</b> — multiplying them is the tempting wrong move.", src:"su23 Midterm Q5c"},
+    {type:"mc", cat:"probability", q:"Now two picks <em>without replacement</em> (an option can't repeat). P(at least one tofu)?",
+     opts:["1 − (1 − 0.15)², same as before","1 − Σ P(first) × P(second not tofu | first) — a conditional chain","2 × 0.15"], a:1,
+     why:"Without replacement the second pick is <b>conditional</b> — the denominators shrink after the first choice, so the with-replacement shortcut breaks. (≈ 0.32; flagged “challenging” on the exam.)", src:"su23 Midterm Q5f"},
+    {type:"mc", cat:"probability", q:"Frank is on time with probability 0.30, late 0.60, a no-show 0.10. P(on time <em>or</em> late)?",
+     opts:["0.3 + 0.6","0.3 × 0.6","1 − (0.3 × 0.6)"], a:0,
+     why:"Mutually exclusive outcomes <b>add</b>. Multiplying treats them as independent events that both happen — they can't.", src:"sp23 Final Q3a"},
+    {type:"mc", cat:"probability", q:"A site predicts Frank: P('yes' | on time) = 0.85, P('yes' | late) = 0.11. <em>Given that Frank is late</em>, P(the site said 'no')?",
+     opts:["0.89","0.6 × 0.89","(0.6 × 0.89) / (0.3×0.15 + 0.6×0.89 + 0.1×0.92)"], a:0,
+     why:"You're already <em>given</em> “late” — it's just 1 − 0.11 = 0.89. The Bayes fraction and the joint <code>0.6 × 0.89</code> are over-work baits.", src:"sp23 Final Q3e"},
+    {type:"mc", cat:"probability", q:"The site says 'yes'. P(Frank was on time | 'yes')?",
+     opts:["0.3 × 0.85","0.85","(0.3 × 0.85) / (0.3×0.85 + 0.6×0.11 + 0.1×0.08)"], a:2,
+     why:"Bayes: the target path ÷ <b>all</b> paths that produce 'yes'. The numerator alone is a joint probability; 0.85 is the reversed conditional. <a href=\"https://inferentialthinking.com/chapters/18/1/more-likely-than-not-binary-classifier\" target=\"_blank\" rel=\"noopener\">book §18.1</a>", src:"sp23 Final Q3d"},
+    {type:"mc", cat:"probability", q:"Aileen is marked present in one class with probability 0.6; the week's two classes are independent. P(present at <em>both</em>)?",
+     opts:["0.6","0.6 × 2","0.6²"], a:2,
+     why:"Both classes, independently → 0.6² = 0.36. (And P(<em>not</em> perfect attendance) = 1 − 0.36 = 0.64.)", src:"fa24 Final Q7a"}
+  ];
+
+  (function buildQuiz(){
+    if (!QUIZ.length) return;
+    var section = document.getElementById("quiz");
+    section.hidden = false;
+    var grid = document.getElementById("quiz-grid");
+    var scoreEl = document.getElementById("quiz-score");
+    var answered = 0, right = 0;
+
+    function updateScore(){
+      scoreEl.textContent = answered + "/" + QUIZ.length + " answered · " + right + " correct";
+    }
+
+    function buildItem(item){
+      var card = el("div","quiz-item");
+      card.dataset.cat = item.cat;
+      var meta = el("div","q-meta",
+        '<span class="q-cat">' + esc(item.cat) + '</span>' +
+        '<span class="q-src">' + esc(item.src) + '</span>');
+      card.appendChild(meta);
+      card.appendChild(el("p","q-text", item.q));
+      if (item.code) { var c = el("code","q-code"); c.textContent = item.code; card.appendChild(c); }
+
+      var opts = item.type === "tf" ? ["True", "False"] : item.opts;
+      var correctIdx = item.type === "tf" ? (item.a ? 0 : 1) : item.a;
+      var optsEl = el("div","q-opts");
+      var why = el("div","q-why");
+      var done = false;
+
+      opts.forEach(function (o, i) {
+        var b = el("button","q-btn"); b.type = "button"; b.textContent = o;
+        b.addEventListener("click", function () {
+          if (done) return;
+          done = true; answered++;
+          var ok = (i === correctIdx);
+          if (ok) right++;
+          Array.prototype.forEach.call(optsEl.children, function (btn, j) {
+            btn.disabled = true;
+            if (j === correctIdx) btn.classList.add("correct");
+            else if (j === i) btn.classList.add("wrong");
+          });
+          why.innerHTML = '<div class="q-why-in">' + (ok
+            ? '<span class="v-ok">Correct.</span> '
+            : '<span class="v-no">Fooled — it’s ' + esc(opts[correctIdx]) + '.</span> ') + item.why + '</div>';
+          requestAnimationFrame(function(){ why.classList.add("show"); });
+          updateScore();
+        });
+        optsEl.appendChild(b);
+      });
+      card.appendChild(optsEl);
+      card.appendChild(why);
+      return card;
+    }
+
+    function renderAll(){
+      grid.innerHTML = "";
+      answered = 0; right = 0;
+      QUIZ.forEach(function (item) { grid.appendChild(buildItem(item)); });
+      updateScore();
+      applyCat();
+    }
+    document.getElementById("quiz-reset").addEventListener("click", renderAll);
+
+    // category filter
+    var catsEl = document.getElementById("quiz-cats");
+    var activeQCat = "all";
+    function applyCat(){
+      Array.prototype.forEach.call(grid.children, function (card) {
+        card.classList.toggle("hidden", activeQCat !== "all" && card.dataset.cat !== activeQCat);
+      });
+    }
+    var uniqueCats = [];
+    QUIZ.forEach(function (i) { if (uniqueCats.indexOf(i.cat) === -1) uniqueCats.push(i.cat); });
+    ["all"].concat(uniqueCats).forEach(function (c) {
+      var b = el("button","qcat");
+      b.type = "button";
+      var n = c === "all" ? QUIZ.length : QUIZ.filter(function (i) { return i.cat === c; }).length;
+      b.textContent = (c === "all" ? "all" : c) + " · " + n;
+      b.setAttribute("aria-pressed", c === "all" ? "true" : "false");
+      b.addEventListener("click", function () {
+        activeQCat = c;
+        Array.prototype.forEach.call(catsEl.children, function (p, j) {
+          p.setAttribute("aria-pressed", (c === "all" ? j === 0 : p === b) ? "true" : "false");
+        });
+        applyCat();
+      });
+      catsEl.appendChild(b);
+    });
+
+    renderAll();
+  })();
+
+  // ================= Distilled course notes =================
+  // {slug, title, cover, pts:[html,...], nugget:html, href}
+  var NOTES = [
+    { slug:"arrays-primer", title:"Arrays: a primer",
+      cover:"Creating arrays, indexing, element-wise math, and the core array functions.",
+      pts:[
+        "Three ways to make one: <code>make_array(1, 2, 3)</code> · <code>np.arange(start, stop, step)</code> · <code>tbl.column('label')</code>",
+        "<b>Zero-indexed</b>: <code>make_array(5, 6, 7, 8).item(1)</code> → <code>6</code>",
+        "Scalar math is element-wise: <code>arr * 5</code> scales every element",
+        "Array + array needs <b>equal lengths</b> — otherwise <code>Error</code>; combines index-by-index",
+        "<code>np.arange</code>: stop is <b>excluded</b>; defaults start=0, step=1 — <code>np.arange(10)</code> → 0…9",
+        "<code>np.append</code> returns a <em>new</em> array — reassign it: <code>vals = np.append(vals, 45)</code>"
+      ],
+      nugget:"the two off-by-one traps — <code>np.arange</code> excludes its stop, and <code>.item()</code> counts from 0.",
+      href:"https://drive.google.com/file/d/1SzpKe_SnFf9_mkLyhETz5-AiaBJBYJDv/view" },
+    { slug:"table-methods", title:"Table functions overview",
+      cover:"The full menu of Table methods, grouped by what they change.",
+      pts:[
+        "<b>No method changes the original table</b> — every call returns a copy; assign it to a variable",
+        "<code>sort</code> is ascending by default; <code>where</code> filters by predicate; <code>take</code> picks rows by 0-indexed position",
+        "<code>group</code>: one row per unique value — no function → a count column; with one → applied to every other column, function name appended to the labels",
+        "<code>pivot</code> is the only method that turns values into <em>columns</em>: the first argument spreads across the top",
+        "Lookup idiom: <code>tbl.sort('col').column('label').item(0)</code> for the row with the smallest value",
+        "<code>apply</code>: pass the function <b>without parentheses</b>; with no column arguments the whole row is passed"
+      ],
+      nugget:"group = categories become rows; pivot = two categoricals, one spread across the top as columns.",
+      href:"https://drive.google.com/file/d/1j2hjhweJdGWW0EdvmjGHsXFUatXIZax4/view" },
+    { slug:"tabular-thinking", title:"Tabular thinking: a strategy guide",
+      cover:"A five-question framework for any table problem, with worked past-midterm examples.",
+      pts:[
+        "Ask: ① what do I have (which columns, categorical or numerical)? ② what must I produce (type + meaning)? ③ where does it come from? ④ what intermediate tables/arrays? ⑤ which functions bridge each step?",
+        "Watch for <b>information loss</b> — aggregating or dropping too early can make later steps impossible; operation order matters",
+        "The staff's actual advice: sketch the intermediate tables <em>by hand</em>",
+        "Per-category summary pattern: <code>trees.select('type', 'height').group('type', np.average)</code>",
+        "Cross-category comparison pattern: <code>p = nba.pivot('prefix', 'position', 'points', sum)</code> then <code>sum(p.column('CLE') > p.column('BOS'))</code>",
+        "Count a boolean array with <code>sum(...)</code> or <code>np.count_nonzero(...)</code>"
+      ],
+      nugget:"two canonical pipelines: select → group(col, np.average), and pivot → column comparison → sum.",
+      href:"https://drive.google.com/file/d/1D9PXUgDLXjFBXZoyGVSKpzk0nKQziDTP/view" },
+    { slug:"sampling", title:"Note 01 · Sampling",
+      cover:"Population vs sample, sampling schemes, replacement, and the three sampling functions.",
+      pts:[
+        "<b>Parameter</b> = measured on the population; <b>statistic</b> = measured on the sample (and estimates the parameter)",
+        "Simple random sample: every individual <em>and</em> every same-size sample equally likely; convenience/systematic schemes can bias",
+        "With replacement → probabilities never change; without → they update after each draw",
+        "<code>np.random.choice(arr, n)</code> — arrays, default with replacement · <code>tbl.sample(n)</code> — rows, defaults n = num_rows, with replacement",
+        "<code>sample_proportions(n, model)</code> — model sums to 1; returns proportions of the same length",
+        "Rules of thumb: bootstrap → bare <code>tbl.sample()</code>; A/B shuffle → <code>tbl.sample(with_replacement=False)</code>"
+      ],
+      nugget:"<code>sample_proportions</code> can ONLY sample with replacement — it can't model without-replacement problems.",
+      href:"https://drive.google.com/file/d/1ePdQP71awh02QAQ3ETbdONxRmOtpGePx/view" },
+    { slug:"variability", title:"Note 02 · Variability of samples",
+      cover:"How sample size controls the spread of sample means — and how to size a sample.",
+      pts:[
+        "<b>SD of sample means = population SD / √n</b> — the spread across all possible samples",
+        "The √ hurts: quadrupling n only halves the spread",
+        "CLT → sample means ≈ normal, so mean ± 2 SD covers ≈ 95%",
+        "<b>95% CI width ≈ 4 × population SD / √n</b>",
+        "Planning: n ≥ (4 × pop SD / desired width)²",
+        "Worked example from the note: pop SD 10 min, width ≤ 4 → n ≥ (40/4)² = <b>100</b>"
+      ],
+      nugget:"memorize the 4 (two SDs each side) — then chain SD → width → solve for n.",
+      href:"https://drive.google.com/file/d/1wSHqtfA38MoTzzCua0s8QM6znRQYkqg9/view" },
+    { slug:"confidence-intervals", title:"Note 03 · Confidence intervals",
+      cover:"What 95% actually means, the bootstrap idiom, and the CI ↔ hypothesis-test bridge.",
+      pts:[
+        "95% describes the <b>procedure</b>, not one interval — a computed interval either contains the parameter or it doesn't",
+        "Coin analogy: probability lives <em>before</em> the flip; once the interval is computed, there's no more chance",
+        "C% CI endpoints: <code>percentile((100−C)/2, stats)</code> and <code>percentile((100+C)/2, stats)</code> — 2.5 &amp; 97.5 for 95%",
+        "Idiom: loop <code>boot = tbl.sample()</code> → statistic → <code>np.append</code>; then take the two percentiles",
+        "Duality: a 95% CI is a two-tailed 5% test — parameter value outside the CI ⇔ reject",
+        "Correlation test: bootstrap r; CI excludes 0 → reject “no correlation” ([0.25, 0.6] rejects; [−0.16, 0.08] fails)"
+      ],
+      nugget:"“95% chance the parameter is in THIS interval” is always the wrong answer — confidence belongs to the process.",
+      href:"https://drive.google.com/file/d/1T9mtHMAEOLXAw4jCCG_20nvXs4W-s2FG/view" },
+    { slug:"correlation-regression", title:"Note 04 · Correlation & linear regression",
+      cover:"r and its properties, standard units, the regression line in both unit systems, RMSE and minimize.",
+      pts:[
+        "r ∈ [−1, 1]: strength + direction of a <b>linear</b> relationship only; unitless; unchanged by swapping axes",
+        "Anscombe's Quartet: four wildly different datasets, all r ≈ 0.816 — always plot",
+        "Standard units: <code>(arr − np.mean(arr)) / np.std(arr)</code>; then <b>r = np.mean(x_su · y_su)</b>",
+        "Standard-units line: <b>ŷ = r · x</b>. Original units: slope = r · SD_y / SD_x, intercept = mean_y − slope · mean_x",
+        "RMSE = <code>np.sqrt(np.mean((actual − predicted) ** 2))</code>",
+        "Least squares numerically: <code>best = minimize(rmse)</code>; slope = <code>best.item(0)</code>, intercept = <code>best.item(1)</code>"
+      ],
+      nugget:"in standard units the regression line is ŷ = r·x — everything else is unit conversion.",
+      href:"https://drive.google.com/file/d/14RGKjs_82qgV0NNATdWycpM3C_7f5D9g/view" },
+    { slug:"classification", title:"Note 05 · Classification (k-NN)",
+      cover:"k-nearest neighbors: distance, choosing k, train/test discipline, accuracy.",
+      pts:[
+        "k-NN: majority class among the k nearest training points; standardize features when scales differ",
+        "Distance: <code>np.sqrt(np.sum((p1 − p2) ** 2))</code> — Euclidean, any number of attributes",
+        "Choosing k: avoid k = 1 (overfits), avoid even k (ties), avoid huge k (with classes 100 vs 50, k = 101 always predicts the big class)",
+        "Split idiom: <code>shuffled = data.sample(with_replacement=False)</code> then <code>.take(np.arange(75))</code> / <code>.take(np.arange(75, 100))</code>",
+        "Accuracy = correct / total, measured on the <b>test set only</b> — test data never builds the classifier",
+        "Pipeline: apply a distance function → with_column → sort → take(np.arange(k)) → majority vote"
+      ],
+      nugget:"odd k, never 1 — and never grade a classifier on its own training data.",
+      href:"https://drive.google.com/file/d/1CI5F1c1uaiehiqePY_k9hnS_mfMbBBUh/view" }
+  ];
+  (function buildNotes(){
+    if (!NOTES.length) return;
+    var section = document.getElementById("notes");
+    section.hidden = false;
+    var grid = document.getElementById("notes-grid");
+    NOTES.forEach(function(n){
+      var card = el("div","note-card");
+      card.appendChild(el("h3", null, esc(n.title)));
+      card.appendChild(el("p","note-cover", n.cover));
+      var ul = el("ul","note-pts");
+      n.pts.forEach(function(p){ ul.appendChild(el("li", null, p)); });
+      card.appendChild(ul);
+      if (n.nugget) card.appendChild(el("div","nugget","<b>Most testable · </b>" + n.nugget));
+      var foot = el("div","note-foot");
+      var a = el("a","book","full note (PDF)");
+      a.href = n.href; a.target = "_blank"; a.rel = "noopener";
+      foot.appendChild(a);
+      card.appendChild(foot);
+      grid.appendChild(card);
+    });
+  })();
+
+  // ================= Chart tooltips =================
+  var tip = document.getElementById("chart-tip");
+  document.addEventListener("mousemove", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-tip]") : null;
+    if (t) {
+      tip.textContent = t.getAttribute("data-tip");
+      tip.style.left = e.clientX + "px";
+      tip.style.top = e.clientY + "px";
+      tip.classList.add("show");
+    } else {
+      tip.classList.remove("show");
+    }
+  });
+})();
+</script>
+</body>
+</html>
