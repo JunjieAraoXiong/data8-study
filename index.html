@@ -372,6 +372,7 @@
   .mini-table .t0 { background: color-mix(in srgb, var(--cat-tables) 15%, var(--surface)); }
   .mini-table .t1 { background: color-mix(in srgb, var(--cat-predicates) 15%, var(--surface)); }
   .mini-table .t2 { background: color-mix(in srgb, var(--cat-strings) 14%, var(--surface)); }
+  .mini-table .t3 { background: color-mix(in srgb, var(--cat-misc) 15%, var(--surface)); }
   .mini-table .mt-c.out { opacity: 0; transform: scale(.9); }
 
   /* demo stage — interactive before/after player */
@@ -1045,10 +1046,16 @@
           before:cones({rowTint:["t0","t1","t1","t0","t2"]}),
           after:{t:"table", cols:["Flavor","count"], rows:[["bubblegum","1"],["chocolate","2"],["strawberry","2"]], rowTint:["t2","t1","t0"], note:"rows with the same tint collapsed into one"} },
         { cap:"Aggregate with a collect function", call:"cones.group('Flavor', np.mean)",
+          anim:{k:"chain", steps:[{k:"sort", order:[4,1,2,0,3]}, {k:"filter", keep:[4,1,0]}]},
+          before:cones({rowTint:["t0","t1","t1","t0","t2"]}),
           after:{t:"table", cols:["Flavor","Color mean","Price mean"], rows:[["bubblegum","","4.75"],["chocolate","","5"],["strawberry","","4.4"]], dimCol:[1], note:"labels get a “<code>mean</code>” suffix; text columns can't be averaged → empty"} },
         { cap:"Group by two columns", call:"cones.group(make_array('Flavor', 'Color'))",
-          after:{t:"table", cols:["Flavor","Color","count"], rows:[["bubblegum","pink","1"],["chocolate","dark brown","1"],["chocolate","light brown","1"],["strawberry","pink","2"]], note:"one row per <em>combination</em> that actually occurs"} },
+          anim:{k:"chain", steps:[{k:"sort", order:[4,2,1,0,3]}, {k:"filter", keep:[4,2,1,0]}]},
+          before:cones({rowTint:["t0","t1","t2","t0","t3"], note:"each tint = one Flavor-and-Color <em>combination</em>"}),
+          after:{t:"table", cols:["Flavor","Color","count"], rows:[["bubblegum","pink","1"],["chocolate","dark brown","1"],["chocolate","light brown","1"],["strawberry","pink","2"]], rowTint:["t3","t2","t1","t0"], note:"one row per <em>combination</em> that actually occurs"} },
         { cap:"The Frankenstein-row trap", call:"cones.group('Flavor', min)",
+          anim:{k:"chain", steps:[{k:"sort", order:[4,1,2,0,3]}, {k:"filter", keep:[4,1,0]}]},
+          before:cones({rowTint:["t0","t1","t1","t0","t2"]}),
           after:{t:"table", cols:["Flavor","Color min","Price min"], rows:[["bubblegum","pink","4.75"],["chocolate","dark brown","4.75"],["strawberry","pink","3.55"]], hlRow:[1], note:"no cone is <em>dark brown at 4.75</em> — that's the min of each column <b>separately</b> (the cheapest chocolate cone is the light brown one). To keep whole rows: <code>cones.sort('Price').group('Flavor', first)</code> with <code>first = lambda a: a.item(0)</code>"} }
       ],
       trap:"The collect function runs on <b>every</b> remaining column <em>independently</em> — so <code>group('Flavor', min)</code> can invent rows that never existed. To get each group's actual best row, <b>sort first, then group with <code>first</code></b> (a real sp23 midterm question). Also: non-numeric columns come back empty under <code>np.mean</code>, and every label gets a suffix (<code>Price mean</code>).",
